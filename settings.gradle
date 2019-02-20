@@ -1,11 +1,8 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
+rootProject.name = 'sennofit-api-preview'
 
 include 'senno-spring-boot-util'
 include 'senno-jpa-repository-config'
 include 'senno-grpc-controller-config'
 
-rootProject.name = 'sennofit-api-preview'
+include 'euler-proto'
+
