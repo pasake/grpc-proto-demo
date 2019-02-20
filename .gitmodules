@@ -1,0 +1,12 @@
+[submodule "senno-grpc-controller-config"]
+	path = senno-grpc-controller-config
+url=https://git.coding.net/sennotech/senno-grpc-controller-config.git
+[submodule "senno-spring-boot-util"]
+	path = senno-spring-boot-util
+url=https://git.coding.net/sennotech/senno-spring-boot-util.git
+[submodule "euler-proto"]
+	path = euler-proto
+url=https://git.coding.net/sennotech/euler-proto.git
+[submodule "senno-jpa-repository-config"]
+	path = senno-jpa-repository-config
+url=https://git.coding.net/sennotech/senno-jpa-repository-config.git

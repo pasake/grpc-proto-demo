@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+include 'senno-spring-boot-util'
+include 'senno-jpa-repository-config'
+include 'senno-grpc-controller-config'
+
+rootProject.name = 'sennofit-api-preview'
