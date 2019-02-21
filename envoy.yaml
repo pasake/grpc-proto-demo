@@ -1,0 +1,143 @@
+admin:
+  access_log_path: /dev/null
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9901
+
+static_resources:
+  listeners:
+  - name: http-listener
+    address:
+      socket_address: { address: 0.0.0.0, port_value: 80 }
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service_host
+              domains: ["*"]
+              routes:
+                - match: { prefix: "/account.AccountService" }
+                  route:
+                    cluster: account-cluster
+                    max_grpc_timeout: 0s
+
+                - match: { prefix: "/china.district.ChinaDistrictService"}
+                  route:
+                    cluster: china-district-cluster
+                    max_grpc_timeout: 0s
+
+                - match: { prefix: "/organization.OrganizationService" }
+                  route:
+                    cluster: organization-cluster
+                    max_grpc_timeout: 0s
+
+                - match: { prefix: "/album.AlbumService" }
+                  route:
+                    cluster: album-cluster
+                    max_grpc_timeout: 0s
+
+                - match: { prefix: "/address.AddressService"}
+                  route:
+                    cluster: address-cluster
+                    max_grpc_timeout: 0s
+
+                - match: { prefix: "/account.mobile.MobileAccountService" }
+                  route:
+                    cluster: mobile-account-cluster
+                    max_grpc_timeout: 0s
+              cors:
+                allow_origin:
+                - "*"
+                allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout,euler-access-token
+                max_age: "1728000"
+                expose_headers: grpc-status,grpc-message
+                enabled: true
+
+          http_filters:
+          - name: envoy.grpc_web
+          - name: envoy.grpc_json_transcoder
+            config:
+              proto_descriptor: /etc/envoy/descriptor_set.desc
+              services:
+              - "account.AccountService"
+              - "china.district.ChinaDistrictService"
+              - "organization.OrganizationService"
+              - "album.AlbumService"
+              - "address.AddressService"
+              - "account.mobile.MobileAccountService"
+              print_options:
+                add_whitespace: true
+                always_print_primitive_fields: true
+                always_print_enums_as_ints: false
+                preserve_proto_field_names: false
+          - name: envoy.cors
+          - name: envoy.router
+
+  clusters:
+
+  - name: account-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: senno-account-app-service
+        port_value: 50051
+
+  - name: china-district-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: senno-china-district-app-service
+          port_value: 50051
+
+  - name: organization-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: senno-organization-app-service
+          port_value: 50051
+
+  - name: album-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: senno-album-app-service
+          port_value: 50051
+
+  - name: address-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: senno-address-app-service
+          port_value: 50051
+
+  - name: mobile-account-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: senno-mobile-account-app-service
+          port_value: 50051

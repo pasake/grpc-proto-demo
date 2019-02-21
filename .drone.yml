@@ -1,0 +1,82 @@
+pipeline:
+
+  # Gradle 缓存依赖库，打包应用。
+  restore-gradle-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - /drone/.gradle
+      - /drone/.m2
+    volumes:
+      - /tmp/cache:/cache
+
+  build:
+    image: openjdk:8-jdk-slim
+    environment:
+      - M2_HOME=/drone/.m2
+      - MAVEN_HOME=/drone/.m2
+      - GRADLE_USER_HOME=/drone/.gradle
+    commands:
+      - chmod +x gradlew
+      - ./gradlew build
+
+  rebuild-gradle-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - /drone/.gradle
+      - /drone/.m2
+    volumes:
+      - /tmp/cache:/cache
+
+  # 开发环境：发布镜像
+  publish-latest:
+    image: plugins/docker
+    mirror: http://registry.docker-cn.com
+    repo: hub.tencentyun.com/senno/sennofit-proto
+    registry: hub.tencentyun.com
+    secrets: [ docker_username, docker_password ]
+    when:
+      event: [ push ]
+      branch:
+        exclude: [refs/tags/*]
+    tags:
+      - latest
+      - ${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8}
+
+  # 开发环境：更新容器服务
+  update-development-image:
+    image: hub.tencentyun.com/senno/tke-kubectl
+    commands:
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-playground
+    when:
+      event: [ push ]
+      branch:
+        exclude: [refs/tags/*]
+
+  # 测试环境：发布镜像
+  publish-release:
+    image: plugins/docker
+    mirror: http://registry.docker-cn.com
+    repo: hub.tencentyun.com/senno/sennofit-proto
+    registry: hub.tencentyun.com
+    secrets: [ docker_username, docker_password ]
+    when:
+      event: [ tag, push ]
+      branch:
+        include: [refs/tags/*]
+    tags:
+      - latest
+      - ${DRONE_TAG##v}
+
+  # 测试环境：更新容器服务
+  update-test-image:
+    image: hub.tencentyun.com/senno/tke-kubectl
+    commands:
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=senno-playground
+    when:
+      event: [ tag, push ]
+      branch:
+        include: [refs/tags/*]
+
+

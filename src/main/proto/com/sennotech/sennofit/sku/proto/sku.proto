@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package insole.app.sku;
+
+option java_multiple_files = true;
+option java_package = "com.sennotech.sennofit.insole.app.sku.generated";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+// 商品服务
+service SkuService {
+    rpc CreateSku (CreateSkuRequest) returns (SkuDetailResponse);
+    rpc ListSku (ListSkuRequest) returns (ListSkuResponse);
+    rpc GetSku (GetSkuRequest) returns (SkuDetailResponse);
+}
+
+message CreateSkuRequest {
+    string skuName = 1;
+    string skuUrl = 2;
+    int32 oriPrice = 3;
+    int32 curPrice = 4;
+}
+
+message SkuDetailResponse {
+    SkuDetail skuDetail = 1;
+}
+
+message SkuDetail {
+    string skuName = 1;
+    string picUrl = 2;
+    int32 oriPrice = 3;
+    int32 curPrice = 4;
+    string id = 5;
+}
+
+message ListSkuResponse {
+    repeated SkuDetail items = 1;
+}
+
+message ListSkuRequest {
+}
+
+message GetSkuRequest {
+    string id = 1;
+}
