@@ -18,3 +18,19 @@
 	path = euler-proto-client
 	url = https://git.coding.net/sennotech/euler-proto-client.git
 	branch = develop
+[submodule "senno-proto-client"]
+	path = senno-proto-client
+	url = https://git.coding.net/sennotech/senno-proto-client.git
+	branch = develop
+[submodule "senno-proto"]
+	path = senno-proto
+	url = https://git.coding.net/sennotech/senno-proto.git
+	branch = develop
+[submodule "sennofit-proto-client"]
+	path = sennofit-proto-client
+	url = https://git.coding.net/sennotech/sennofit-proto-client.git
+	branch = develop
+[submodule "sennofit-proto"]
+	path = sennofit-proto
+	url = https://git.coding.net/sennotech/sennofit-proto.git
+	branch = develop

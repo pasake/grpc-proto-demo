@@ -1,8 +1,13 @@
-rootProject.name = 'sennofit-api-preview'
+rootProject.name = 'sennofit-insole-app'
 
 include 'senno-spring-boot-util'
 include 'senno-jpa-repository-config'
 include 'senno-grpc-controller-config'
 
 include 'euler-proto'
+include 'euler-proto-client'
+include 'senno-proto'
+include 'senno-proto-client'
+include 'sennofit-proto'
+include 'sennofit-proto-client'
 
