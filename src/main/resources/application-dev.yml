@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/preview
+      uri: mongodb://localhost:27017/sennofit.insole.app
 
 server:
   port: 8080
