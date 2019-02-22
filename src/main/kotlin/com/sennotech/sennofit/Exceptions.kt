@@ -21,4 +21,14 @@ sealed class Exceptions(
             message = "Sku not found",
             errorCode = 0
     )
+    class OrderNotFound(uuid: String) : Exceptions(
+            uuid = UUID.fromString(uuid),
+            message = "Order not found",
+            errorCode = 10
+    )
+    class StockShortage(uuid: String) : Exceptions(
+            uuid = UUID.fromString(uuid),
+            message = "Insole stock shortage",
+            errorCode = 20
+    )
 }
