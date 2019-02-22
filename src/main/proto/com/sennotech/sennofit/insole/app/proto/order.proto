@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package insole.app.order;
+
+option java_multiple_files = true;
+option java_package = "com.sennotech.sennofit.insole.app.order.generated";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "com/sennotech/sennofit/insole/app/proto/sku.proto";
+
+// 商品服务
+service OrderService {
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+    rpc ListOrder (ListOrderRequest) returns (ListOrderResponse);
+    rpc GetOrder (GetOrderRequest) returns (OrderDetailResponse);
+}
+
+message CreateOrderRequest {
+    AddressDetail address = 2;
+    repeated OrderItemDetailRequest orderItems = 3;
+    int64 organizationId = 4;
+}
+
+message CreateOrderResponse {
+    string id = 1;
+}
+
+message OrderDetailResponse {
+    OrderDetail orderDetail = 1;
+}
+
+message OrderDetail {
+    string id = 1;
+    AddressDetail address = 2;
+    repeated OrderItemDetailResponse orderItems = 3;
+}
+
+message ListOrderResponse {
+    repeated OrderDetail orderItems = 1;
+}
+
+message ListOrderRequest {
+}
+
+message GetOrderRequest {
+    string id = 1;
+}
+
+message AddressDetail {
+    string shippingAddress = 2;
+    string customerName = 3;
+    string customerPhone = 4;
+}
+
+message OrderItemDetailRequest {
+    int32 shoesSize = 1;
+    int32 quantity = 2;
+    string skuId = 3;
+}
+
+message OrderItemDetailResponse {
+    int32 shoesSize = 1;
+    int32 quantity = 2;
+    sku.SkuDetail sku = 3;
+}

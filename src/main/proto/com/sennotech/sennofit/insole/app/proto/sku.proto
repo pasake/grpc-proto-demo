@@ -33,6 +33,7 @@ message SkuDetail {
     int32 oriPrice = 3;
     int32 curPrice = 4;
     string id = 5;
+    string desc = 6;
 }
 
 message ListSkuResponse {

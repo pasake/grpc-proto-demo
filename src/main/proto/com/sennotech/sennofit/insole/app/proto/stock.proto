@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package insole.app.stock;
+
+option java_multiple_files = true;
+option java_package = "com.sennotech.sennofit.insole.app.stock.generated";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+// 商品服务
+service StockService {
+    rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse);
+}
+
+message UpdateStockRequest {
+    int32 number = 1;
+}
+
+message UpdateStockResponse {
+
+}
