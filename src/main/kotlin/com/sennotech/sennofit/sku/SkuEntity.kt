@@ -1,7 +1,7 @@
 package com.sennotech.sennofit.sku
 
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import javax.persistence.Id
 
 /**
  * @author 严鸿豪
@@ -14,5 +14,6 @@ class SkuEntity(
         var skuName: String,
         var oriPrice: Int,
         var curPrice: Int,
-        var picUrl: String
+        var picUrl: String,
+        var desc: String? = null
 )

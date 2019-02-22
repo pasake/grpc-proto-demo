@@ -22,27 +22,28 @@ class SkuService(
 
     @PostConstruct
     fun initSku() {
-        skuRepository.deleteAll()
-
-        val sku1 = SkuEntity(
-                skuName = "SennoFit Sports-迪卡波",
-                oriPrice = 19900,
-                curPrice = 9900,
-                picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Tekapo.png"
-        )
-        val sku2 = SkuEntity(
-                skuName = "SennoFit Sports-罗弗敦",
-                oriPrice = 19900,
-                curPrice = 9900,
-                picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Norway.png"
-        )
-        val sku3 = SkuEntity(
-                skuName = "SennoFit Sports-普罗旺斯",
-                oriPrice = 19900,
-                curPrice = 9900,
-                picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Montevideo.png"
-        )
-        skuRepository.saveAll(arrayListOf(sku1, sku2, sku3))
+        if (skuRepository.count() == 0L) {
+            log.info("初始化商品信息")
+            val sku1 = SkuEntity(
+                    skuName = "SennoFit Sports-迪卡波",
+                    oriPrice = 19900,
+                    curPrice = 9900,
+                    picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Tekapo.png"
+            )
+            val sku2 = SkuEntity(
+                    skuName = "SennoFit Sports-罗弗敦",
+                    oriPrice = 19900,
+                    curPrice = 9900,
+                    picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Norway.png"
+            )
+            val sku3 = SkuEntity(
+                    skuName = "SennoFit Sports-普罗旺斯",
+                    oriPrice = 19900,
+                    curPrice = 9900,
+                    picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Montevideo.png"
+            )
+            skuRepository.saveAll(arrayListOf(sku1, sku2, sku3))
+        }
     }
 
     fun create(request: CreateSkuRequest): SkuDetail {
@@ -76,6 +77,7 @@ class SkuService(
                 .setCurPrice(skuEntity.curPrice)
                 .setOriPrice(skuEntity.oriPrice)
                 .setPicUrl(skuEntity.picUrl)
+                .setDesc(skuEntity.desc)
                 .setSkuName(skuEntity.skuName)
                 .build()
     }
