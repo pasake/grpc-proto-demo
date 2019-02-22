@@ -69,11 +69,10 @@ class SkuServiceTest {
     }
 
     @Test
-    fun `get sku`(){
-        try {
-            val sku = stub.getSku(GetSkuRequest.newBuilder().setId("1").build())
-        } catch (e:Exception) {
-            println(e)
-        }
+    fun `get sku`() {
+        val skus = stub.listSku(ListSkuRequest.getDefaultInstance())
+        val id = skus.getItems(0).id
+        val sku = stub.getSku(GetSkuRequest.newBuilder().setId(id).build())
+        log.info(sku.toString())
     }
 }

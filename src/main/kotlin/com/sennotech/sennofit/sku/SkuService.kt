@@ -7,6 +7,7 @@ import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.annotation.PostConstruct
 
 /**
@@ -53,7 +54,9 @@ class SkuService(
     }
 
     fun getSku(request: GetSkuRequest): SkuDetail {
-        val sku = skuRepository.findById(request.id).orElseThrow{Exceptions.SkuNotFound("63f92d77-1dba-4d6c-94ab-52fc17833d18")}
+        val sku = skuRepository.findById(request.id).orElseThrow {
+            Exceptions.SkuNotFound("63f92d77-1dba-4d6c-94ab-52fc17833d18")
+        }
 
         return convertToSkuDetail(sku)
     }

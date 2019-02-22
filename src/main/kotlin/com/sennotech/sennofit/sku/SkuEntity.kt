@@ -1,7 +1,7 @@
 package com.sennotech.sennofit.sku
 
-import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import javax.persistence.Id
 
 /**
  * @author 严鸿豪
