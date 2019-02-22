@@ -1,32 +1,29 @@
 package com.sennotech.sennofit.order
 
 import com.sennotech.sennofit.sku.SkuEntity
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.sql.Timestamp
-import javax.persistence.Id
 
 /**
  * @author 严鸿豪
  * @create 2019-02-22 10:43
  */
 @Document(collection = "order")
-class OrderEntiry(
+class OrderEntity(
         @Id
-        var id: String,
+        var id: String? = null,
         var orderDetail: OrderDetail? = null,
-        var shippingAddress: ShippingAddress
+        var shippingAddress: ShippingAddress,
+        var accessToken: String
 )
 
 data class OrderDetail(
         var orderIdInRedis: Long,
         var orderIdInSenno: Long? = null,
         var orderNo: String? = null,
-        @field:CreationTimestamp
-        var createTime: Timestamp,
-        @field:UpdateTimestamp
-        var updateTime: Timestamp,
+        var createTime: Timestamp? = null,
+        var updateTime: Timestamp? = null,
         var items: List<OrderItem>,
         var orderStatus: String
 ) {
@@ -40,7 +37,7 @@ data class OrderDetail(
 }
 
 data class OrderItem(
-        var shoesSize: String,
+        var shoesSize: Int,
         var quantity: Int,
         var skuEntity: SkuEntity
 )
