@@ -63,9 +63,7 @@ class OrderService(
                     }.build()
                 }.build())
 
-        val orderIdInSenno = createOrderResponse.orderId
-
-        val orderEntity = orderEntity(request, 1008611)
+        val orderEntity = orderEntity(request, createOrderResponse.orderId)
         return orderRepository.save(orderEntity).id!!
     }
 
