@@ -1,5 +1,6 @@
 package com.sennotech.sennofit.sku
 
+import com.google.protobuf.StringValue
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.Exceptions
 import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
@@ -46,13 +47,11 @@ class SkuService(
         }
     }
 
-    fun create(request: CreateSkuRequest): SkuDetail {
-        return convertToSkuDetail(skuRepository.save(convertToSkuEntity(request)))
-    }
+    fun create(request: CreateSkuRequest): SkuDetail =
+            convertToSkuDetail(skuRepository.save(convertToSkuEntity(request)))
 
-    fun list(request: ListSkuRequest?): List<SkuDetail> {
-        return skuRepository.findAll().map { convertToSkuDetail(it) }
-    }
+    fun list(request: ListSkuRequest?): List<SkuDetail> =
+            skuRepository.findAll().map { convertToSkuDetail(it) }
 
     fun getSku(request: GetSkuRequest): SkuDetail {
         val sku = skuRepository.findById(request.id).orElseThrow {
@@ -77,7 +76,7 @@ class SkuService(
                 .setCurPrice(skuEntity.curPrice)
                 .setOriPrice(skuEntity.oriPrice)
                 .setPicUrl(skuEntity.picUrl)
-                .setDesc(skuEntity.desc)
+                .setDesc(StringValue.of(skuEntity.desc ?: ""))
                 .setSkuName(skuEntity.skuName)
                 .build()
     }

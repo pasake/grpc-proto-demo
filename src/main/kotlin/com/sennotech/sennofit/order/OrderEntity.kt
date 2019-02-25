@@ -1,9 +1,11 @@
 package com.sennotech.sennofit.order
 
 import com.sennotech.sennofit.sku.SkuEntity
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.mongodb.core.mapping.Document
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
 /**
  * @author 严鸿豪
@@ -14,27 +16,19 @@ class OrderEntity(
         @Id
         var id: String? = null,
         var orderDetail: OrderDetail? = null,
-        var shippingAddress: ShippingAddress,
-        var accessToken: String
+        var shippingAddress: ShippingAddress
 )
 
 data class OrderDetail(
         var orderIdInRedis: Long,
         var orderIdInSenno: Long? = null,
-        var orderNo: String? = null,
-        var createTime: Timestamp? = null,
-        var updateTime: Timestamp? = null,
-        var items: List<OrderItem>,
-        var orderStatus: String
-) {
-    fun unpaid(): Boolean {
-        return this.orderStatus == "unpaid"
-    }
-
-    fun paid(): Boolean {
-        return this.orderStatus == "paid"
-    }
-}
+        var orderNo: String,
+        @field:CreatedDate
+        var createTime: LocalDateTime? = LocalDateTime.now(),
+        @field:LastModifiedDate
+        var updateTime: LocalDateTime? = LocalDateTime.now(),
+        var items: List<OrderItem>
+)
 
 data class OrderItem(
         var shoesSize: Int,

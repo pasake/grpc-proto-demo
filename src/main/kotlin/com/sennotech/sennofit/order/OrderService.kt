@@ -33,6 +33,7 @@ class OrderService(
 
     @PostConstruct
     fun init() {
+        //初始化订单id
         val orderCount = orderRepository.count()
         val orderCountRedis = redisTemplate.opsForValue().get("order_counter")
 
@@ -41,29 +42,30 @@ class OrderService(
     }
 
     @Transactional
-    fun createOrder(request: CreateOrderRequest, accessToken: String): String {
+    fun createOrder(request: CreateOrderRequest): String {
         log.info("create order: $request")
 
         //判断库存
-        if(redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
+        if (redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
             throw Exceptions.StockShortage("c22a5297-daea-4628-a510-15374e5e57e2")
 
         //取第一个订单项的描述和标题
         val sku = skuRepository.findById(request.orderItemsList[0].skuId).orElseThrow {
             Exceptions.SkuNotFound("0a2150cc-9973-4482-a7f0-962b287e9b53")
         }
-        val createOrderResponse = orderClient.createOrder(com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
-            createOrder = CreateOrder.newBuilder().apply {
-                orderCreatorAccountId = ContextKeys.accountInfo.id.get()!!
-                organizationId = request.organizationId
-                description = sku.desc
-                title = sku.skuName
-            }.build()
-        }.build())
+        val createOrderResponse = orderClient.createOrder(
+                com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
+                    createOrder = CreateOrder.newBuilder().apply {
+                        orderCreatorAccountId = ContextKeys.accountInfo.id.get()!!
+                        organizationId = request.organizationId
+                        description = sku.desc
+                        title = sku.skuName
+                    }.build()
+                }.build())
 
         val orderIdInSenno = createOrderResponse.orderId
 
-        val orderEntity = orderEntity(accessToken, request, orderIdInSenno)
+        val orderEntity = orderEntity(request, 1008611)
         return orderRepository.save(orderEntity).id!!
     }
 
@@ -117,12 +119,11 @@ class OrderService(
                 orderIdInRedis.toString()
     }
 
-    private fun orderEntity(accessToken: String, request: CreateOrderRequest, orderIdInSenno: Long): OrderEntity {
+    private fun orderEntity(request: CreateOrderRequest, orderIdInSenno: Long): OrderEntity {
         val items = request.orderItemsList
         val address = request.address
         val orderIdInRedis = orderIncr()
         return OrderEntity(
-                accessToken = accessToken,
                 shippingAddress = ShippingAddress(
                         phone = address.customerPhone,
                         address = address.shippingAddress,
@@ -132,7 +133,6 @@ class OrderService(
                         orderIdInRedis = orderIdInRedis,
                         orderIdInSenno = orderIdInSenno,
                         orderNo = orderNoGen(orderIdInRedis),
-                        orderStatus = "unpaid",
                         items = items.map {
                             val sku = skuRepository.findById(it.skuId).orElseThrow {
                                 Exceptions.SkuNotFound("6339df93-011d-4ad5-9f1a-4863d36ada13")

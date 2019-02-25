@@ -33,7 +33,7 @@ pipeline:
   publish-latest:
     image: plugins/docker
     mirror: http://registry.docker-cn.com
-    repo: hub.tencentyun.com/senno/senno-account-app
+    repo: hub.tencentyun.com/sennofit/sennofit-insole-app
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
@@ -46,9 +46,9 @@ pipeline:
 
   # 开发环境：更新容器服务
   update-development-image:
-    image: hub.tencentyun.com/senno/tke-kubectl
+    image: hub.tencentyun.com/sennofit/tke-kubectl
     commands:
-      - kubectl set image deployment/senno-account-app-service senno-account-app-container=hub.tencentyun.com/senno/senno-account-app:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=senno-development
+      - kubectl set image deployment/sennofit-insole-app-service sennofit-insole-app-service=hub.tencentyun.com/senno/sennofit-insole-app:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-development
     when:
       event: [ push ]
       branch:
@@ -58,7 +58,7 @@ pipeline:
   publish-release:
     image: plugins/docker
     mirror: http://registry.docker-cn.com
-    repo: hub.tencentyun.com/senno/senno-account-app
+    repo: hub.tencentyun.com/sennofit/sennofit-insole-app
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
@@ -73,7 +73,7 @@ pipeline:
   update-test-image:
     image: hub.tencentyun.com/senno/tke-kubectl
     commands:
-      - kubectl set image deployment/senno-account-app-service senno-account-app-container=hub.tencentyun.com/senno/senno-account-app:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=senno-test
+      - kubectl set image deployment/sennofit-insole-app-service sennofit-insole-app-service=hub.tencentyun.com/senno/sennofit-insole-app:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-test
     when:
       event: [ tag, push ]
       branch:
