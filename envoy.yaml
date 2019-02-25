@@ -69,4 +69,4 @@ static_resources:
     hosts:
     - socket_address:
         address: sennofit-insole-app-service
-        port_value: 50512
+        port_value: 50051
