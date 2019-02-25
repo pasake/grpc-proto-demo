@@ -12,7 +12,11 @@ import "google/protobuf/timestamp.proto";
 // 商品服务
 service SkuService {
     rpc CreateSku (CreateSkuRequest) returns (SkuDetailResponse);
-    rpc ListSku (ListSkuRequest) returns (ListSkuResponse);
+    rpc ListSku (ListSkuRequest) returns (ListSkuResponse) {
+        option (google.api.http)  = {
+            get: "/SkuService/ListSku"
+        };
+    };
     rpc GetSku (GetSkuRequest) returns (SkuDetailResponse);
 }
 
@@ -33,7 +37,7 @@ message SkuDetail {
     int32 oriPrice = 3;
     int32 curPrice = 4;
     string id = 5;
-    string desc = 6;
+    google.protobuf.StringValue desc = 6;
 }
 
 message ListSkuResponse {

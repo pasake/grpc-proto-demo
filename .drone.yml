@@ -33,7 +33,7 @@ pipeline:
   publish-latest:
     image: plugins/docker
     mirror: http://registry.docker-cn.com
-    repo: hub.tencentyun.com/senno/sennofit-proto
+    repo: hub.tencentyun.com/sennofit/sennofit-proto
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
@@ -48,7 +48,7 @@ pipeline:
   update-development-image:
     image: hub.tencentyun.com/senno/tke-kubectl
     commands:
-      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-playground
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/sennofit/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-playground
     when:
       event: [ push ]
       branch:
@@ -58,7 +58,7 @@ pipeline:
   publish-release:
     image: plugins/docker
     mirror: http://registry.docker-cn.com
-    repo: hub.tencentyun.com/senno/sennofit-proto
+    repo: hub.tencentyun.com/sennofit/sennofit-proto
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
@@ -73,7 +73,7 @@ pipeline:
   update-test-image:
     image: hub.tencentyun.com/senno/tke-kubectl
     commands:
-      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=senno-playground
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-test
     when:
       event: [ tag, push ]
       branch:

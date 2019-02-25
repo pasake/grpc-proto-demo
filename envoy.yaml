@@ -22,34 +22,17 @@ static_resources:
             - name: local_service_host
               domains: ["*"]
               routes:
-                - match: { prefix: "/account.AccountService" }
+                - match: { prefix: "/insole.app.order.OrderService" }
                   route:
-                    cluster: account-cluster
+                    cluster: insole-app-cluster
                     max_grpc_timeout: 0s
-
-                - match: { prefix: "/china.district.ChinaDistrictService"}
+                - match: { prefix: "/insole.app.sku.SkuService" }
                   route:
-                    cluster: china-district-cluster
+                    cluster: insole-app-cluster
                     max_grpc_timeout: 0s
-
-                - match: { prefix: "/organization.OrganizationService" }
+                - match: { prefix: "/insole.app.stock.StockService" }
                   route:
-                    cluster: organization-cluster
-                    max_grpc_timeout: 0s
-
-                - match: { prefix: "/album.AlbumService" }
-                  route:
-                    cluster: album-cluster
-                    max_grpc_timeout: 0s
-
-                - match: { prefix: "/address.AddressService"}
-                  route:
-                    cluster: address-cluster
-                    max_grpc_timeout: 0s
-
-                - match: { prefix: "/account.mobile.MobileAccountService" }
-                  route:
-                    cluster: mobile-account-cluster
+                    cluster: insole-app-cluster
                     max_grpc_timeout: 0s
               cors:
                 allow_origin:
@@ -66,12 +49,9 @@ static_resources:
             config:
               proto_descriptor: /etc/envoy/descriptor_set.desc
               services:
-              - "account.AccountService"
-              - "china.district.ChinaDistrictService"
-              - "organization.OrganizationService"
-              - "album.AlbumService"
-              - "address.AddressService"
-              - "account.mobile.MobileAccountService"
+              - "insole.app.order.OrderService"
+              - "insole.app.sku.SkuService"
+              - "insole.app.stock.StockService"
               print_options:
                 add_whitespace: true
                 always_print_primitive_fields: true
@@ -81,63 +61,12 @@ static_resources:
           - name: envoy.router
 
   clusters:
-
-  - name: account-cluster
+  - name: insole-app-cluster
     connect_timeout: 0.25s
     type: logical_dns
     http2_protocol_options: {}
     lb_policy: round_robin
     hosts:
     - socket_address:
-        address: senno-account-app-service
-        port_value: 50051
-
-  - name: china-district-cluster
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    hosts:
-      - socket_address:
-          address: senno-china-district-app-service
-          port_value: 50051
-
-  - name: organization-cluster
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    hosts:
-      - socket_address:
-          address: senno-organization-app-service
-          port_value: 50051
-
-  - name: album-cluster
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    hosts:
-      - socket_address:
-          address: senno-album-app-service
-          port_value: 50051
-
-  - name: address-cluster
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    hosts:
-      - socket_address:
-          address: senno-address-app-service
-          port_value: 50051
-
-  - name: mobile-account-cluster
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    hosts:
-      - socket_address:
-          address: senno-mobile-account-app-service
-          port_value: 50051
+        address: sennofit-insole-app-service
+        port_value: 50512

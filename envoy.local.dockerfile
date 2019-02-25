@@ -1,7 +1,6 @@
-#FROM envoyproxy/envoy-alpine:3b75abab717f2c824d3b32b1afcf3383a8cb65ff
-FROM envoyproxy/envoy-alpine:latest
+FROM hub.tencentyun.com/tensorchen/envoy-alpine:v1.0.0
 
-#COPY envoy.local.yaml /etc/envoy/envoy.yaml
+COPY envoy.yaml /etc/envoy/envoy.yaml
 
 #VOLUME /etc/envoy/envoy.yaml
 EXPOSE 80 9901
