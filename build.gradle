@@ -48,7 +48,6 @@ repositories {
 
 dependencies {
 
-    // Log
 //    compile project(':senno-spring-boot-util')
 //    compile project(':senno-jpa-repository-config')
     compile project(':senno-grpc-controller-config')
