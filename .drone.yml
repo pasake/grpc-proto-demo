@@ -62,13 +62,12 @@ pipeline:
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
-      event: [ push ]
+      event: [ tag, push ]
       branch:
         include: [refs/tags/*]
     tags:
       - latest
       - ${DRONE_TAG##v}
-
 
   # 测试环境：更新容器服务
   update-test-image:
@@ -76,7 +75,7 @@ pipeline:
     commands:
       - kubectl set image deployment/envoy envoy=hub.tencentyun.com/sennofit/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-test
     when:
-      event: [ push ]
+      event: [ tag, push ]
       branch:
         include: [refs/tags/*]
 
