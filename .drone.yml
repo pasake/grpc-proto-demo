@@ -69,6 +69,7 @@ pipeline:
       - latest
       - ${DRONE_TAG##v}
 
+
   # 测试环境：更新容器服务
   update-test-image:
     image: hub.tencentyun.com/senno/tke-kubectl
