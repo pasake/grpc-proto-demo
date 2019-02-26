@@ -2,17 +2,11 @@ package com.sennotech.sennofit.report
 
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.insole.app.report.generated.Report
-import java.io.IOException
-import java.util.TreeMap
-
-import org.springframework.boot.configurationprocessor.json.JSONObject
-import org.springframework.stereotype.Service
-
 import com.sennotech.sennofit.report.config.CosConfig
 import com.sennotech.sennofit.report.config.CosStsClient
-import com.sennotech.sennofit.report.config.CosStsClient.getCredential
-import jdk.nashorn.internal.runtime.regexp.joni.Config.log
-import lombok.extern.slf4j.Slf4j
+import org.springframework.stereotype.Service
+import java.io.IOException
+import java.util.*
 
 /**
  * @author 严鸿豪
