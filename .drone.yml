@@ -46,7 +46,7 @@ pipeline:
 
   # 开发环境：更新容器服务
   update-development-image:
-    image: hub.tencentyun.com/sennofit/tke-kubectl
+    image: hub.tencentyun.com/senno/tke-kubectl
     commands:
       - kubectl set image deployment/sennofit-insole-app-service sennofit-insole-app-service=hub.tencentyun.com/senno/sennofit-insole-app:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-development
     when:
