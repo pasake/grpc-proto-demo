@@ -27,7 +27,6 @@ apply plugin: "com.google.protobuf"
 
 group = "com.sennotech.sennofit"
 
-
 //compileKotlin {
 //    kotlinOptions.jvmTarget = "1.8"
 //}
@@ -64,6 +63,11 @@ dependencies {
     compile "io.grpc:grpc-stub:1.14.0"
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+import org.apache.tools.ant.taskdefs.condition.Os
 
 protobuf {
     protoc {
@@ -74,12 +78,31 @@ protobuf {
         grpc {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.14.0'
         }
+
+//        if (Os.isFamily(Os.FAMILY_MAC)) {
+//            typescript {
+//                path = project.projectDir.getPath() + '/tools/protoc-gen-ts-darwin'
+//            }
+//        } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+//            typescript {
+//                path = project.projectDir.getPath() + '/tools/protoc-gen-ts-linux'
+//            }
+//        } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+//            typescript {
+//                path = project.projectDir.getPath() + '/tools/protoc-gen-ts-windows'
+//            }
+//        }
+
     }
 
     generateProtoTasks {
         ofSourceSet("main").each { task ->
+
             task.plugins {
                 grpc {}
+//                if (Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_UNIX) || Os.isFamily(Os.FAMILY_WINDOWS)) {
+//                    typescript {}
+//                }
             }
 
             task.generateDescriptorSet = true
@@ -93,12 +116,4 @@ protobuf {
         }
 
     }
-}
-
-//dependencyManagement {
-//    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
-//}
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
 }
