@@ -9,3 +9,9 @@ grpc:
 
 server:
   port: 8080
+
+cos:
+  folder:
+    report: test/report
+  bucketName: sennofit-test-1255704943
+  endpoint: https://sennofit-test-1255704943.cos.ap-shanghai.myqcloud.com

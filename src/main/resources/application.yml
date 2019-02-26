@@ -5,3 +5,20 @@ spring:
 grpc:
   port: 50051
   enabled: true
+
+cos:
+  secretId: AKIDhLwX3Y0wocHrfOOgifhbO1A8B6sydStB
+  secretKey: PhpmeMtGXdi1qZFtPpAKK9IKucGk7UMB
+  appId: 1255704943
+  region: ap-shanghai
+  action:
+    putObject: name/cos:PutObject
+    multipartUpload:
+      initiateMultipartUpload: name/cos:InitiateMultipartUpload
+      listParts: name/cos:ListParts
+      uploadPart: name/cos:UploadPart
+      completeMultipartUpload: name/cos:CompleteMultipartUpload
+      abortMultipartUpload: name/cos:AbortMultipartUpload
+    postObject: name/cos:PostObject
+    getObject: name/cos:GetObject
+  durationSeconds: 7200 #临时密钥时长：10min，注：最长不能超过7200s
