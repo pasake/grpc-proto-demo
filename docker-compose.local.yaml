@@ -4,7 +4,7 @@ services:
   proxy:
     build:
       context: .
-      dockerfile: envoy.local.dockerfile
+      dockerfile: Dockerfile.local
     volumes:
     - ./build/generated/source/proto/main/descriptor_set.desc:/etc/envoy/descriptor_set.desc
     - ./envoy.local.yaml:/etc/envoy/envoy.yaml

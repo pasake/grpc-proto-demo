@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package insole.app.report;
+
+option java_package = "com.sennotech.sennofit.insole.app.report.generated";
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+// 商品服务
+service ReportService {
+    rpc GenReportCredential (GenReportCredentialRequest) returns (GenReportCredentialResponse) {
+        option (google.api.http) = {
+            get: "/ReportService/GenReportCredential"
+        };
+    };
+}
+
+message GenReportCredentialRequest {
+
+}
+
+message GenReportCredentialResponse {
+    google.protobuf.Timestamp startTime = 1;
+    google.protobuf.Timestamp expiredTime = 2;
+    string requestId = 3;
+    CredentialsDto credentialsRsp = 4;
+    CosConfigDto configRsp = 5;
+}
+
+message CredentialsDto {
+    string tmpSecretId = 1;
+    string tmpSecretKey = 2;
+    string sessionToken = 3;
+}
+
+message CosConfigDto {
+    string appid = 1;
+    string bucket = 2;
+    string region = 3;
+    string keyPrefix = 4;
+}
