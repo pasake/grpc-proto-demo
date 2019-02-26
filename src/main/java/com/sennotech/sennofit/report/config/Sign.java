@@ -8,6 +8,8 @@ import java.util.TreeMap;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.sennotech.sennofit.report.config.Base64;
+
 /**
  * @author 黄艳婷
  * @create 2019-01-29 16:16
@@ -16,9 +18,6 @@ public class Sign {
 
     // 编码方式
     private static final String CONTENT_CHARSET = "UTF-8";
-
-    // HMAC算法
-    private static final String HMAC_ALGORITHM = "HmacSHA1";
 
     /**
      * 签名
@@ -29,9 +28,9 @@ public class Sign {
      * @return 签名结果
      * @author cicerochen@tencent.com
      */
-    public static String sign(String signStr, String secret, String signatureMethod)
+    static String sign(String signStr, String secret, String signatureMethod)
             throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
-        String sig = null;
+        String sig;
         Mac mac1 = Mac.getInstance("HmacSHA1");
         Mac mac2 = Mac.getInstance("HmacSHA256");
         byte[] hash;
@@ -47,11 +46,11 @@ public class Sign {
             hash = mac1.doFinal(signStr.getBytes(CONTENT_CHARSET));
         }
 
-        sig = new String(Base64.encode(hash));
+        sig = Base64.encode(hash);
         return sig;
     }
 
-    public static String makeSignPlainText(TreeMap<String, Object> requestParams,
+    static String makeSignPlainText(TreeMap<String, Object> requestParams,
             String requestMethod, String requestHost, String requestPath) {
 
         String retStr = "";
@@ -62,10 +61,10 @@ public class Sign {
         return retStr;
     }
 
-    protected static String buildParamStr(TreeMap<String, Object> requestParams,
+    private static String buildParamStr(TreeMap<String, Object> requestParams,
             String requestMethod) {
 
-        String retStr = "";
+        StringBuilder retStr = new StringBuilder();
         for (String key : requestParams.keySet()) {
             String value = requestParams.get(key).toString();
             //排除上传文件的参数
@@ -74,13 +73,13 @@ public class Sign {
                 continue;
             }
             if (retStr.length() == 0) {
-                retStr += '?';
+                retStr.append('?');
             } else {
-                retStr += '&';
+                retStr.append('&');
             }
-            retStr += key.replace("_", ".") + '=' + value;
+            retStr.append(key.replace("_", ".")).append('=').append(value);
 
         }
-        return retStr;
+        return retStr.toString();
     }
 }

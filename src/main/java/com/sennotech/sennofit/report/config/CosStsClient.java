@@ -7,13 +7,13 @@ import java.util.TreeMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.sennotech.sennofit.report.config.Request;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 黄艳婷
  * @create 2019-01-29 16:18
  */
-@Slf4j
 public class CosStsClient {
 
     private static final int DEFAULT_DURATION_SECONDS = 7200;
@@ -60,7 +60,6 @@ public class CosStsClient {
             data.put("startTime", expiredTime - durationSeconds);
             return downCompat(data);
         } catch (Exception e) {
-            log.error("fail to getCredential, msg:{}, details:{}", e.getMessage(), e);
             throw new IOException("result = " + result, e);
         }
     }
