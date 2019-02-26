@@ -34,6 +34,10 @@ static_resources:
                   route:
                     cluster: insole-app-cluster
                     max_grpc_timeout: 0s
+                - match: { prefix: "/insole.app.report.ReportService" }
+                  route:
+                    cluster: insole-app-cluster
+                    max_grpc_timeout: 0s
               cors:
                 allow_origin:
                 - "*"
@@ -51,6 +55,7 @@ static_resources:
               services:
               - "insole.app.order.OrderService"
               - "insole.app.sku.SkuService"
+              - "insole.app.report.ReportService"
               - "insole.app.stock.StockService"
               print_options:
                 add_whitespace: true
