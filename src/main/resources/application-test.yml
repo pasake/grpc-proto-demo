@@ -12,9 +12,6 @@ grpc:
   port: 50051
   enabled: true
 
-server:
-  port: 8080
-
 cos:
   endpoint: https://sennofit-test-1255704943.cos.ap-shanghai.myqcloud.com
   secretId: AKIDhLwX3Y0wocHrfOOgifhbO1A8B6sydStB

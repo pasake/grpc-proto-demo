@@ -7,9 +7,6 @@ grpc:
   port: 50512
   enabled: true
 
-server:
-  port: 8080
-
 cos:
   folder:
     report: test/report
