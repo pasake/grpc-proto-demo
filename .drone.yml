@@ -18,7 +18,7 @@ pipeline:
       - GRADLE_USER_HOME=/drone/.gradle
     commands:
       - chmod +x gradlew
-      - ./gradlew build
+      - ./gradlew bootJar
 
   rebuild-gradle-cache:
     image: drillster/drone-volume-cache
@@ -73,7 +73,7 @@ pipeline:
   update-test-image:
     image: hub.tencentyun.com/senno/tke-kubectl
     commands:
-      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/senno/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-test
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/sennofit/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-test
     when:
       event: [ tag, push ]
       branch:
