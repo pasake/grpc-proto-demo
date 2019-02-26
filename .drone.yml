@@ -62,7 +62,7 @@ pipeline:
     registry: hub.tencentyun.com
     secrets: [ docker_username, docker_password ]
     when:
-      event: [ tag, push ]
+      event: [ push ]
       branch:
         include: [refs/tags/*]
     tags:
