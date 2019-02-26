@@ -1,11 +1,12 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/sennofit_insole_app
+      uri: mongodb://yan:yan@10.0.4.21:27017/sennofit_insole_app
   redis:
-    host:
-    port: 6379
-    password:
+      host: 172.81.230.245
+      port: 6379
+      password: Sennotech2015
+      database: 10
 grpc:
   port: 50051
   enabled: true
