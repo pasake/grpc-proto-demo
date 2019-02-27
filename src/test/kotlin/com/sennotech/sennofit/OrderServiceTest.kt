@@ -2,18 +2,22 @@ package com.sennotech.sennofit
 
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.insole.app.SennofitInsoleAppApplication
-import com.sennotech.sennofit.insole.app.order.OrderRepository
+import com.sennotech.sennofit.insole.app.order.*
+import com.sennotech.sennofit.insole.app.order.OrderDetail
 import com.sennotech.sennofit.insole.app.order.generated.*
+import com.sennotech.sennofit.insole.app.sku.SkuEntity
+import com.sennotech.sennofit.insole.app.sku.SkuRepository
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.lognet.springboot.grpc.context.LocalRunningGrpcPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 
 /**
@@ -25,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner
         webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @RunWith(SpringRunner::class)
-@ActiveProfiles(profiles = ["test1"])
+//@ActiveProfiles(profiles = ["test"])
 class OrderServiceTest {
 
     private val log = logger()
@@ -36,6 +40,9 @@ class OrderServiceTest {
     @LocalRunningGrpcPort
     var runningPort: Int = 0
 
+    @get:Rule
+    var exceptionRule = ExpectedException.none()
+
     @Before
     fun setupChannels() {
         channel = ManagedChannelBuilder
@@ -44,6 +51,12 @@ class OrderServiceTest {
                 .build()
 
         stub = OrderServiceGrpc.newBlockingStub(channel)
+
+        orderRepository.saveAll(arrayListOf(
+                orderEntity(10086, 1008611),
+                orderEntity(10087, 1008711),
+                orderEntity(10088, 1008811)
+        ))
     }
 
     @After
@@ -58,21 +71,22 @@ class OrderServiceTest {
 
     @Test
     fun `create order`() {
+        val skuIdentify = skuRepository.findAll()[0].id!!
         val items = listOf<OrderItemDetailRequest>(
                 OrderItemDetailRequest.newBuilder().apply {
                     shoesSize = 41
                     quantity = 1
-                    skuId = "5c6fa89150d8222f507b3d81"
+                    skuId = skuIdentify
                 }.build(),
                 OrderItemDetailRequest.newBuilder().apply {
                     shoesSize = 41
                     quantity = 2
-                    skuId = "5c6fa89150d8222f507b3d81"
+                    skuId = skuIdentify
                 }.build(),
                 OrderItemDetailRequest.newBuilder().apply {
                     shoesSize = 41
                     quantity = 3
-                    skuId = "5c6fa89150d8222f507b3d81"
+                    skuId = skuIdentify
                 }.build()
         )
 
@@ -96,16 +110,62 @@ class OrderServiceTest {
             reportDetail = reportDetailRequest
         }.build()
 
-        val id = stub.createOrder(request).id
-        orderRepository.deleteById(id)
+        stub.createOrder(request)
     }
+
 
     @Test
     fun `find one order`() {
-        val r = stub.getOrder(GetOrderRequest.newBuilder().setId(1008611).build())
+        val r = stub.getOrder(GetOrderRequest.newBuilder()
+                .setId(orderRepository.findAll()[0].orderIdSenno!!).build())
         log.info(r.toString())
     }
 
     @Autowired
     lateinit var orderRepository: OrderRepository
+
+    @Test
+    fun `list order`() {
+        val r = stub.listOrder(ListOrderRequest.getDefaultInstance())
+
+        log.info(r.orderItemsList.toString())
+        log.info("size " + r.orderItemsCount)
+    }
+
+    private fun orderEntity(orderIdRedis: Long, orderIdSenno: Long): OrderEntity {
+        return OrderEntity(
+                orderIdRedis = orderIdRedis,
+                orderIdSenno = orderIdSenno,
+                orderDetail = OrderDetail(
+                        orderNo = "orderNo",
+                        items = arrayListOf(
+                                OrderItem(
+                                        shoesSize = 12,
+                                        quantity = 1,
+                                        skuEntity = SkuEntity(
+                                                skuName = "skuName",
+                                                oriPrice = 1000,
+                                                curPrice = 500,
+                                                picUrl = "picUrl"
+                                        )
+                                )
+                        )
+                ),
+                shippingAddress = ShippingAddress(
+                        phone = "phone",
+                        name = "name",
+                        address = "address"
+                ),
+                report = Report(
+                        gait = "gait",
+                        sidePosture = "side",
+                        frontPosture = "front",
+                        leftFoot = "left",
+                        rightFoot = "right"
+                )
+        )
+    }
+
+    @Autowired
+    lateinit var skuRepository: SkuRepository
 }

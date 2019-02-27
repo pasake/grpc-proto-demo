@@ -1,6 +1,7 @@
 package com.sennotech.sennofit
 
 import com.sennotech.euler.common.util.logger
+import com.sennotech.sennofit.insole.app.SennofitInsoleAppApplication
 import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest
@@ -9,7 +10,9 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.lognet.springboot.grpc.context.LocalRunningGrpcPort
 import org.springframework.boot.test.context.SpringBootTest
@@ -19,8 +22,12 @@ import org.springframework.test.context.junit4.SpringRunner
  * @author 严鸿豪
  * @create 2019-02-20 18:19
  */
-@SpringBootTest
+@SpringBootTest(
+        classes = [SennofitInsoleAppApplication::class],
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
+)
 @RunWith(SpringRunner::class)
+//@ActiveProfiles("test")
 class SkuServiceTest {
 
     private val log = logger()
@@ -30,6 +37,9 @@ class SkuServiceTest {
 
     @LocalRunningGrpcPort
     var runningPort: Int = 0
+
+    @get:Rule
+    var exceptionRule = ExpectedException.none()
 
     @Before
     fun setupChannels() {

@@ -28,10 +28,10 @@ class OrderController(
         if (request == null)
             throw SennofitExceptions.RequestIsNull("3fafcef4-b781-45dc-8d4f-e9856641fc59")
 
-        val id = orderService.createOrder(request)
+        orderService.createOrder(request)
 
         responseObserver?.apply {
-            onNext(CreateOrderResponse.newBuilder().setId(id).build())
+            onNext(CreateOrderResponse.getDefaultInstance())
             onCompleted()
         }
     }

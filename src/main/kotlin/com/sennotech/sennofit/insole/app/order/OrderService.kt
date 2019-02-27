@@ -6,6 +6,7 @@ import com.sennotech.sennofit.insole.app.order.generated.*
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
 import org.apache.commons.lang3.StringUtils
+import org.json.XMLTokener.entity
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -37,7 +38,7 @@ class OrderService(
     }
 
     @Transactional
-    fun createOrder(request: CreateOrderRequest): String {
+    fun createOrder(request: CreateOrderRequest) {
         //判断库存
         if (redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
             throw com.sennotech.sennofit.insole.app.stock.Exceptions
@@ -60,17 +61,17 @@ class OrderService(
 //
 //        val orderEntity = orderEntity(request, createOrderResponse.orderId)
         val orderEntity = orderEntity(request, 1008611)
-        return orderRepository.save(orderEntity).id!!
+        orderRepository.save(orderEntity)
     }
 
     fun listOrder(request: ListOrderRequest?) {
     }
 
     fun getOrder(request: GetOrderRequest?): OrderDetailResponse {
-        val entity = orderRepository.findByOrderIdSenno(request!!.id).orElseThrow {
-            Exceptions.OrderNotFound("2692294a-6fbe-4f34-83aa-187584c3f333")
-        }
-        return convertResponse(entity)
+        val r = orderRepository.findByOrderIdSenno(request!!.id)
+        if (r.isEmpty())
+            throw Exceptions.OrderNotFound("2692294a-6fbe-4f34-83aa-187584c3f333")
+        return convertResponse(r[0])
     }
 
     private fun convertResponse(orderEntity: OrderEntity): OrderDetailResponse {
