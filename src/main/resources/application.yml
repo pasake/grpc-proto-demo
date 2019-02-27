@@ -22,3 +22,14 @@ cos:
     postObject: name/cos:PostObject
     getObject: name/cos:GetObject
   durationSeconds: 7200 #临时密钥时长：10min，注：最长不能超过7200s
+
+---
+spring:
+  profiles: test1
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+
+grpc:
+  port: 0
+  enabled: true

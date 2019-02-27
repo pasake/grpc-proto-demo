@@ -21,7 +21,6 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
-
 ############################# https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore #######################
 .metadata
 bin/
@@ -186,3 +185,5 @@ local.properties
 *.classpath
 
 .idea
+
+src/main/resources/application-dev.yml

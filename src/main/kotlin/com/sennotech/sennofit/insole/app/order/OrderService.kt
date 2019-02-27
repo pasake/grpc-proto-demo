@@ -38,8 +38,6 @@ class OrderService(
 
     @Transactional
     fun createOrder(request: CreateOrderRequest): String {
-        log.info("create order: $request")
-
         //判断库存
         if (redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
             throw com.sennotech.sennofit.insole.app.stock.Exceptions
@@ -126,6 +124,13 @@ class OrderService(
                         phone = address.customerPhone,
                         address = address.shippingAddress,
                         name = address.customerName
+                ),
+                report = Report(
+                        gait = request.reportDetail.gait,
+                        frontPosture = request.reportDetail.frontPosture,
+                        sidePosture = request.reportDetail.sidePosture,
+                        leftFoot = request.reportDetail.leftFoot,
+                        rightFoot = request.reportDetail.rightFoot
                 ),
                 orderDetail = OrderDetail(
                         orderNo = orderNoGen(orderIdInRedis),

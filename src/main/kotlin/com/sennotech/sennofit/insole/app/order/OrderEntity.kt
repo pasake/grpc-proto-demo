@@ -18,7 +18,8 @@ class OrderEntity(
         var orderDetail: OrderDetail? = null,
         var shippingAddress: ShippingAddress,
         var orderIdRedis: Long,
-        var orderIdSenno: Long? = null
+        var orderIdSenno: Long? = null,
+        var report: Report? = null
 )
 
 data class OrderDetail(
@@ -40,4 +41,12 @@ data class ShippingAddress(
         var phone: String,
         var name: String,
         var address: String
+)
+
+data class Report(
+        var gait: String,
+        var frontPosture: String,
+        var sidePosture: String,
+        var leftFoot: String,
+        var rightFoot: String
 )
