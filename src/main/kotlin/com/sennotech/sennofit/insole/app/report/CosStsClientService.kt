@@ -2,10 +2,10 @@ package com.sennotech.sennofit.insole.app.report
 
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.insole.app.report.generated.Report
-import com.sennotech.sennofit.report.config.CosConfig
 import com.sennotech.sennofit.report.config.CosStsClient
 import org.springframework.stereotype.Service
 import java.io.IOException
+import java.lang.NullPointerException
 import java.util.*
 
 /**
@@ -33,10 +33,16 @@ class CosStsClientService(private val cosConfig: CosConfig) {
         get() {
             log.info("cos config : ${cosConfig.secretId}")
             val config = baseConfig
-            config[PREFIX] = cosConfig.folder.report + "/*"
-            config[ACTIONS] = arrayOf(cosConfig.action.putObject, cosConfig.action.multipartUpload.initiateMultipartUpload, cosConfig.action.multipartUpload.listParts, cosConfig.action.multipartUpload.uploadPart, cosConfig.action.multipartUpload.completeMultipartUpload, cosConfig.action.multipartUpload.abortMultipartUpload, cosConfig.action.postObject)
+            config[PREFIX] = cosConfig.folder!!.report + "/*"
+            config[ACTIONS] = arrayOf(cosConfig.action!!.putObject,
+                    cosConfig.action!!.multipartUpload?.initiateMultipartUpload,
+                    cosConfig.action!!.multipartUpload?.listParts,
+                    cosConfig.action!!.multipartUpload?.uploadPart,
+                    cosConfig.action!!.multipartUpload?.completeMultipartUpload,
+                    cosConfig.action!!.multipartUpload?.abortMultipartUpload,
+                    cosConfig.action!!.postObject)
 
-            return getCredential(config, cosConfig.folder.report)
+            return getCredential(config, cosConfig.folder!!.report!!)
         }
 
     // 固定密钥
@@ -47,11 +53,11 @@ class CosStsClientService(private val cosConfig: CosConfig) {
     private val baseConfig: TreeMap<String, Any>
         get() {
             val config = TreeMap<String, Any>()
-            config[SECRETID] = cosConfig.secretId
-            config[SECRETKEY] = cosConfig.secretKey
+            config[SECRETID] = cosConfig.secretId!!
+            config[SECRETKEY] = cosConfig.secretKey!!
             config[DURATION] = cosConfig.durationSeconds
-            config[BUCKET] = cosConfig.bucketName
-            config[REGION] = cosConfig.region
+            config[BUCKET] = cosConfig.bucketName!!
+            config[REGION] = cosConfig.region!!
 
             return config
         }
@@ -62,10 +68,10 @@ class CosStsClientService(private val cosConfig: CosConfig) {
     val analystSignCredential: Report.GenReportCredentialResponse
         get() {
             val config = baseConfig
-            config[PREFIX] = cosConfig.folder.sign + "/*"
-            config[ACTIONS] = arrayOf(cosConfig.action.putObject)
+            config[PREFIX] = cosConfig.folder!!.sign + "/*"
+            config[ACTIONS] = arrayOf(cosConfig.action!!.putObject)
 
-            return getCredential(config, cosConfig.folder.sign)
+            return getCredential(config, cosConfig.folder!!.sign!!)
         }
 
     init {
