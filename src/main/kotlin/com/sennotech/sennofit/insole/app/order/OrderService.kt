@@ -57,6 +57,8 @@ class OrderService(
         val accessContext = ContextKeys.accessContext.get()
                 ?: throw SennofitExceptions.AccountIdIsNull("0627a1f6-6976-43f5-a3e1-be76b50cbcd0")
 
+        log.info("access_context accountId : ${accessContext.accountContext.accountId}")
+
         val createOrderResponse = orderClient.createOrder(
                 com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
                     createOrder = CreateOrder.newBuilder().apply {
@@ -122,6 +124,7 @@ class OrderService(
     }
 
     private fun orderEntity(request: CreateOrderRequest, orderIdInSenno: Long): OrderEntity {
+        log.info("build order entity request: $request, orderIdInSenno: $orderIdInSenno")
         val items = request.orderItemsList
         val address = request.address
         val orderIdInRedis = orderIncr()
