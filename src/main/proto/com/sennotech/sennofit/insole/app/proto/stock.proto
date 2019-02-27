@@ -13,7 +13,7 @@ import "google/protobuf/timestamp.proto";
 service StockService {
     rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse) {
         option (google.api.http) = {
-            put: "/StockService/UpdateStock"
+            put: "/insole.app.stock.StockService/UpdateStock"
         };
     };
 }

@@ -11,7 +11,7 @@ import "google/api/annotations.proto";
 service ReportService {
     rpc GenReportCredential (GenReportCredentialRequest) returns (GenReportCredentialResponse) {
         option (google.api.http) = {
-            get: "/ReportService/GenReportCredential"
+            get: "/insole.app.report.ReportService/GenReportCredential"
         };
     };
 }

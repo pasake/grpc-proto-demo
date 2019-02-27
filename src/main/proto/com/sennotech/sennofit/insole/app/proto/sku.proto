@@ -14,7 +14,7 @@ service SkuService {
     rpc CreateSku (CreateSkuRequest) returns (SkuDetailResponse);
     rpc ListSku (ListSkuRequest) returns (ListSkuResponse) {
         option (google.api.http)  = {
-            get: "/SkuService/ListSku"
+            get: "/insole.app.sku.SkuService/ListSku"
         };
     };
     rpc GetSku (GetSkuRequest) returns (SkuDetailResponse);
