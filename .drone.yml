@@ -48,7 +48,7 @@ pipeline:
   update-development-image:
     image: hub.tencentyun.com/senno/tke-kubectl
     commands:
-      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/sennofit/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-playground
+      - kubectl set image deployment/envoy envoy=hub.tencentyun.com/sennofit/sennofit-proto:${DRONE_BRANCH/\//_}-${DRONE_COMMIT:0:8} --namespace=sennofit-development
     when:
       event: [ push ]
       branch:
