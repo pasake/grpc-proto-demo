@@ -1,4 +1,4 @@
-package com.sennotech.sennofit.report
+package com.sennotech.sennofit.insole.app.report
 
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.insole.app.report.generated.Report
@@ -89,7 +89,8 @@ class CosStsClientService(private val cosConfig: CosConfig) {
                         result.getString("RequestId"), error.getString("Code"),
                         error.getString("Message"))
 
-                throw IllegalArgumentException("error msg: " + error.getString("Code")
+                throw Exceptions.IllegalArgument("efe031e9-d1ef-4147-9668-771104573449"
+                        , "Error msg: " + error.getString("Code")
                         + ", deatils: " + error.getString("Message"))
             }
 
@@ -114,8 +115,8 @@ class CosStsClientService(private val cosConfig: CosConfig) {
         } catch (e: IOException) {
             log.error("interface class name: {}, method name: {} msg: {}, details: {}",
                     "CosStsClientServiceImpl", "getCredential()", e.message, e)
-            throw IllegalArgumentException("no valid secret")
+            throw Exceptions.IllegalArgument("f5a86f78-bcf6-4582-b109-08a839a0cc5e",
+                    "Invalid secret")
         }
-
     }
 }

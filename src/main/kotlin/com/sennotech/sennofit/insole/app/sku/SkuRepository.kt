@@ -1,4 +1,4 @@
-package com.sennotech.sennofit.sku
+package com.sennotech.sennofit.insole.app.sku
 
 
 import org.springframework.data.mongodb.repository.MongoRepository

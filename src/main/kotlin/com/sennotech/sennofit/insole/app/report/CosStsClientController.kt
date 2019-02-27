@@ -1,4 +1,4 @@
-package com.sennotech.sennofit.report
+package com.sennotech.sennofit.insole.app.report
 
 import com.sennotech.sennofit.insole.app.report.generated.Report
 import com.sennotech.sennofit.insole.app.report.generated.ReportServiceGrpc

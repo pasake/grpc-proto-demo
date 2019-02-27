@@ -1,6 +1,6 @@
-package com.sennotech.sennofit.order
+package com.sennotech.sennofit.insole.app.order
 
-import com.sennotech.sennofit.sku.SkuEntity
+import com.sennotech.sennofit.insole.app.sku.SkuEntity
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedDate
@@ -16,12 +16,12 @@ class OrderEntity(
         @Id
         var id: String? = null,
         var orderDetail: OrderDetail? = null,
-        var shippingAddress: ShippingAddress
+        var shippingAddress: ShippingAddress,
+        var orderIdRedis: Long,
+        var orderIdSenno: Long? = null
 )
 
 data class OrderDetail(
-        var orderIdInRedis: Long,
-        var orderIdInSenno: Long? = null,
         var orderNo: String,
         @field:CreatedDate
         var createTime: LocalDateTime? = LocalDateTime.now(),

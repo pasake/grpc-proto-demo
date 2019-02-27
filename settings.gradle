@@ -10,4 +10,5 @@ include 'senno-proto'
 include 'senno-proto-client'
 include 'sennofit-proto'
 include 'sennofit-proto-client'
+include 'sennofit-exception-config'
 

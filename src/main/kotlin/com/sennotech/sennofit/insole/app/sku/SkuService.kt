@@ -1,14 +1,12 @@
-package com.sennotech.sennofit.sku
+package com.sennotech.sennofit.insole.app.sku
 
 import com.google.protobuf.StringValue
 import com.sennotech.euler.common.util.logger
-import com.sennotech.sennofit.Exceptions
 import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
 import org.springframework.stereotype.Service
-import java.util.*
 import javax.annotation.PostConstruct
 
 /**

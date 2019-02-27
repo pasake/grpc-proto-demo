@@ -1,10 +1,7 @@
-package com.sennotech.sennofit.sku
+package com.sennotech.sennofit.insole.app.sku
 
-import com.sennotech.euler.common.exceptions.SennofitExceptions
-import com.sennotech.euler.common.grpc.interceptors.AccessContextServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.EulerExceptionServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestLoggerServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestUuidServerInterceptor
+import com.sennotech.euler.common.grpc.interceptors.*
+import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import io.grpc.stub.StreamObserver
 import org.lognet.springboot.grpc.GRpcService
 import com.sennotech.sennofit.insole.app.sku.generated.*
@@ -16,7 +13,7 @@ import com.sennotech.sennofit.insole.app.sku.generated.*
 @GRpcService(
         interceptors = [
             AccessContextServerInterceptor::class,
-            EulerExceptionServerInterceptor::class,
+            SennoExceptionServerInterceptor::class,
             RequestLoggerServerInterceptor::class,
             RequestUuidServerInterceptor::class
         ]

@@ -1,4 +1,4 @@
-package com.sennotech.sennofit
+package com.sennotech.sennofit.insole.app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties

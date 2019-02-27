@@ -2,8 +2,7 @@ package com.sennotech.sennofit
 
 import com.sennotech.euler.common.util.logger
 import com.sennotech.sennofit.insole.app.order.generated.*
-import com.sennotech.sennofit.insole.app.sku.generated.SkuServiceGrpc
-import com.sennotech.sennofit.order.OrderRepository
+import com.sennotech.sennofit.insole.app.order.OrderRepository
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.junit.After
@@ -14,7 +13,6 @@ import org.lognet.springboot.grpc.context.LocalRunningGrpcPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
-import java.util.ArrayList
 
 /**
  * @author 严鸿豪
@@ -89,7 +87,7 @@ class OrderServiceTest {
 
     @Test
     fun `find one order`() {
-        val r = stub.getOrder(GetOrderRequest.newBuilder().setId("5c6fb0b650d822378cc147b8").build())
+        val r = stub.getOrder(GetOrderRequest.newBuilder().setId(1008611).build())
         log.info(r.toString())
     }
 
