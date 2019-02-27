@@ -6,6 +6,7 @@ import com.sennotech.euler.common.util.logger
 import com.sennotech.euler.order.client.OrderClient
 import com.sennotech.euler.order.generated.AddOrderItemRequest
 import com.sennotech.euler.order.generated.CreateOrder
+import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.order.generated.*
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
@@ -52,10 +53,14 @@ class OrderService(
             com.sennotech.sennofit.insole.app.sku.Exceptions
                     .SkuNotFound("e85dafc0-fb25-4654-ad0c-50b6426f8218")
         }
+
+        val accessContext = ContextKeys.accessContext.get()
+                ?: throw SennofitExceptions.AccountIdIsNull("0627a1f6-6976-43f5-a3e1-be76b50cbcd0")
+
         val createOrderResponse = orderClient.createOrder(
                 com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
                     createOrder = CreateOrder.newBuilder().apply {
-                        orderCreatorAccountId = ContextKeys.accountInfo.id.get()!!
+                        orderCreatorAccountId = accessContext.accountContext.accountId
                         organizationId = request.organizationId
                         description = sku.desc
                         title = sku.skuName

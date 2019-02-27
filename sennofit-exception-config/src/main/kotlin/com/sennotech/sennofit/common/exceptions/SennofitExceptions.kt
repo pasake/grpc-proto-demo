@@ -20,6 +20,13 @@ sealed class SennofitExceptions(
             errorCode = 0
     )
 
+    class AccountIdIsNull(uuid: String) : SennofitExceptions(
+            uuid = uuid,
+            message = "Account id is null",
+            moduleCode = 0,
+            errorCode = 1
+    )
+
     open class Sku(uuid: String, message: String, errorCode: Int)
         : SennofitExceptions(
             uuid = uuid,
