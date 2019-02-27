@@ -33,7 +33,6 @@ message CreateOrderRequest {
 }
 
 message CreateOrderResponse {
-    string id = 1;
 }
 
 message ReportDetail {
