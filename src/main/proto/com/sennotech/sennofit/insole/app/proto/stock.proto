@@ -11,14 +11,18 @@ import "google/protobuf/timestamp.proto";
 
 // 商品服务
 service StockService {
-    rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse){
-        option (google.api.http)  = {
+    rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse) {
+        option (google.api.http) = {
             put: "/StockService/UpdateStock"
         };
     };
 }
 
 message UpdateStockRequest {
+    UpdateStockDetail updateStockRequest = 1;
+}
+
+message UpdateStockDetail {
     int32 number = 1;
 }
 
