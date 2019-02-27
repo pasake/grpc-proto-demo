@@ -17,7 +17,6 @@ service ReportService {
 }
 
 message GenReportCredentialRequest {
-
 }
 
 message GenReportCredentialResponse {

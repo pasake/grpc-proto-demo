@@ -29,10 +29,19 @@ message CreateOrderRequest {
     AddressDetail address = 2;
     repeated OrderItemDetailRequest orderItems = 3;
     int64 organizationId = 4;
+    ReportDetail reportDetail = 5;
 }
 
 message CreateOrderResponse {
     string id = 1;
+}
+
+message ReportDetail {
+    string gait = 1;
+    string frontPosture = 2;
+    string sidePosture = 3;
+    string leftFoot = 4;
+    string rightFoot = 5;
 }
 
 message OrderDetailResponse {
