@@ -31,7 +31,7 @@ class CosStsClientService(private val cosConfig: CosConfig) {
     // post上传
     val reportCredential: Report.GenReportCredentialResponse
         get() {
-            log.info("cos config : $cosConfig")
+            log.info("cos config : ${cosConfig.secretId}")
             val config = baseConfig
             config[PREFIX] = cosConfig.folder.report + "/*"
             config[ACTIONS] = arrayOf(cosConfig.action.putObject, cosConfig.action.multipartUpload.initiateMultipartUpload, cosConfig.action.multipartUpload.listParts, cosConfig.action.multipartUpload.uploadPart, cosConfig.action.multipartUpload.completeMultipartUpload, cosConfig.action.multipartUpload.abortMultipartUpload, cosConfig.action.postObject)
