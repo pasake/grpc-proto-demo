@@ -53,8 +53,8 @@ dependencies {
     compile project(':sennofit-proto')
     compile project(':sennofit-exception-config')
     compile project(':euler-proto')
-//    compile project(':senno-proto')
-//    compile project(':senno-proto-client')
+    compile project(':senno-proto')
+    compile project(':senno-proto-client')
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"

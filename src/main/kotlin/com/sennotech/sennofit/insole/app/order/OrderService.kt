@@ -1,12 +1,15 @@
 package com.sennotech.sennofit.insole.app.order
 
+import com.google.protobuf.StringValue
+import com.sennotech.euler.common.grpc.ContextKeys
 import com.sennotech.euler.common.util.logger
-//import com.sennotech.euler.order.client.OrderClient
+import com.sennotech.euler.order.client.OrderClient
+import com.sennotech.euler.order.generated.AddOrderItemRequest
+import com.sennotech.euler.order.generated.CreateOrder
 import com.sennotech.sennofit.insole.app.order.generated.*
-import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
+import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
 import org.apache.commons.lang3.StringUtils
-import org.json.XMLTokener.entity
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -22,8 +25,8 @@ import javax.annotation.PostConstruct
 class OrderService(
         private val orderRepository: OrderRepository,
         private val skuRepository: SkuRepository,
-        private val redisTemplate: RedisTemplate<String, String>
-//        private val orderClient: OrderClient
+        private val redisTemplate: RedisTemplate<String, String>,
+        private val orderClient: OrderClient
 ) {
     private val log = logger()
 
@@ -49,18 +52,17 @@ class OrderService(
             com.sennotech.sennofit.insole.app.sku.Exceptions
                     .SkuNotFound("e85dafc0-fb25-4654-ad0c-50b6426f8218")
         }
-//        val createOrderResponse = orderClient.createOrder(
-//                com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
-//                    createOrder = CreateOrder.newBuilder().apply {
-//                        orderCreatorAccountId = ContextKeys.accountInfo.id.get()!!
-//                        organizationId = request.organizationId
-//                        description = sku.desc
-//                        title = sku.skuName
-//                    }.build()
-//                }.build())
-//
-//        val orderEntity = orderEntity(request, createOrderResponse.orderId)
-        val orderEntity = orderEntity(request, 1008611)
+        val createOrderResponse = orderClient.createOrder(
+                com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
+                    createOrder = CreateOrder.newBuilder().apply {
+                        orderCreatorAccountId = ContextKeys.accountInfo.id.get()!!
+                        organizationId = request.organizationId
+                        description = sku.desc
+                        title = sku.skuName
+                    }.build()
+                }.build())
+
+        val orderEntity = orderEntity(request, createOrderResponse.orderId)
         orderRepository.save(orderEntity)
     }
 
@@ -141,21 +143,21 @@ class OrderService(
                                         .SkuNotFound("0a2150cc-9973-4482-a7f0-962b287e9b53")
                             }
 
-//                            orderClient.addOrderItem(
-//                                    AddOrderItemRequest.newBuilder().apply {
-//                                        orderId = orderIdInSenno
-//                                        orderItem = com.sennotech.euler.order.generated.OrderItem.newBuilder().apply {
-//                                            thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
-//                                            title = StringValue.newBuilder().setValue(sku.skuName).build()
-//                                            unitPrice = sku.curPrice
-//                                            quantity = it.quantity
-//                                            totalPrice = sku.curPrice * it.quantity
-//                                            currency = StringValue.of("RMB")
-//                                            detailType = "sennofit.insole.app"
-//                                            detailId = orderIdInRedis
-//                                        }.build()
-//                                    }.build()
-//                            )
+                            orderClient.addOrderItem(
+                                    AddOrderItemRequest.newBuilder().apply {
+                                        orderId = orderIdInSenno
+                                        orderItem = com.sennotech.euler.order.generated.OrderItem.newBuilder().apply {
+                                            thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
+                                            title = StringValue.newBuilder().setValue(sku.skuName).build()
+                                            unitPrice = sku.curPrice
+                                            quantity = it.quantity
+                                            totalPrice = sku.curPrice * it.quantity
+                                            currency = StringValue.of("RMB")
+                                            detailType = "sennofit.insole.app"
+                                            detailId = orderIdInRedis
+                                        }.build()
+                                    }.build()
+                            )
 
                             OrderItem(
                                     shoesSize = it.shoesSize,
