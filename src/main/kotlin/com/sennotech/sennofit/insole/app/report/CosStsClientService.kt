@@ -31,7 +31,6 @@ class CosStsClientService(private val cosConfig: CosConfig) {
     // post上传
     val reportCredential: Report.GenReportCredentialResponse
         get() {
-            log.info("cos config : ${cosConfig.secretId}")
             val config = baseConfig
             config[PREFIX] = cosConfig.folder!!.report + "/*"
             config[ACTIONS] = arrayOf(cosConfig.action!!.putObject,

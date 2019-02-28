@@ -1,7 +1,6 @@
 grpc:
   port: 50051
   enabled: true
-
 cos:
   secretId: AKIDhLwX3Y0wocHrfOOgifhbO1A8B6sydStB
   secretKey: PhpmeMtGXdi1qZFtPpAKK9IKucGk7UMB
@@ -18,3 +17,6 @@ cos:
     postObject: name/cos:PostObject
     getObject: name/cos:GetObject
   durationSeconds: 7200 #临时密钥时长：10min，注：最长不能超过7200s
+spring:
+  profiles:
+    active: local

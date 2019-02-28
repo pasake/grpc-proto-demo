@@ -123,7 +123,6 @@ class OrderService(
     }
 
     private fun orderEntity(request: CreateOrderRequest, orderIdInSenno: Long): OrderEntity {
-        log.info("build order entity request: $request, orderIdInSenno: $orderIdInSenno")
         val items = request.orderItemsList
         val address = request.address
         val orderIdInRedis = orderIncr()

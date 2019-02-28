@@ -6,9 +6,7 @@ import com.sennotech.euler.common.grpc.interceptors.RequestLoggerServerIntercept
 import com.sennotech.euler.common.grpc.interceptors.RequestUuidServerInterceptor
 import com.sennotech.euler.common.grpc.interceptors.SennoExceptionServerInterceptor
 import com.sennotech.euler.common.util.logger
-import com.sennotech.sennofit.insole.app.stock.generated.StockServiceGrpc
-import com.sennotech.sennofit.insole.app.stock.generated.UpdateStockRequest
-import com.sennotech.sennofit.insole.app.stock.generated.UpdateStockResponse
+import com.sennotech.sennofit.insole.app.stock.generated.*
 import io.grpc.stub.StreamObserver
 import jdk.nashorn.internal.runtime.regexp.joni.Config.log
 import org.lognet.springboot.grpc.GRpcService
@@ -47,6 +45,17 @@ class StockController(
 
         responseObserver?.apply {
             onNext(UpdateStockResponse.getDefaultInstance())
+            onCompleted()
+        }
+    }
+
+    override fun stock(request: StockRequest?, responseObserver: StreamObserver<StockResponse>?) {
+        if (request == null)
+            throw SennofitExceptions.RequestIsNull("4894d04b-51e5-47f3-9005-3d09b5baeaf2")
+
+        val stock = redisTemplate.opsForValue().get("insole_stock") ?: "0"
+        responseObserver?.apply {
+            onNext(StockResponse.newBuilder().setStock(stock.toInt()).build())
             onCompleted()
         }
     }
