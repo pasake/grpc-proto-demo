@@ -16,6 +16,12 @@ service StockService {
             put: "/insole.app.stock.StockService/UpdateStock"
         };
     };
+
+    rpc Stock (StockRequest) returns (StockResponse) {
+        option (google.api.http) = {
+            get: "/insole.app.stock.StockService/Stock"
+        };
+    };
 }
 
 message UpdateStockRequest {
@@ -27,5 +33,11 @@ message UpdateStockDetail {
 }
 
 message UpdateStockResponse {
+}
 
+message StockRequest {
+}
+
+message StockResponse {
+    int32 stock = 1;
 }
