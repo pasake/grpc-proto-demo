@@ -1,11 +1,11 @@
 package com.sennotech.sennofit.insole.app.order
 
 import com.google.protobuf.StringValue
-import com.sennotech.euler.common.grpc.ContextKeys
-import com.sennotech.euler.common.util.logger
+import com.sennotech.base.common.grpc.ContextKeys
+import com.sennotech.base.common.util.logger
+import com.sennotech.base.order.generated.CreateOrder
 import com.sennotech.euler.order.client.OrderClient
-import com.sennotech.euler.order.generated.AddOrderItemRequest
-import com.sennotech.euler.order.generated.CreateOrder
+import com.sennotech.base.order.generated.AddOrderItemRequest
 import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.order.generated.*
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
@@ -58,7 +58,7 @@ class OrderService(
                 ?: throw SennofitExceptions.AccountIdIsNull("0627a1f6-6976-43f5-a3e1-be76b50cbcd0")
 
         val createOrderResponse = orderClient.createOrder(
-                com.sennotech.euler.order.generated.CreateOrderRequest.newBuilder().apply {
+                com.sennotech.base.order.generated.CreateOrderRequest.newBuilder().apply {
                     createOrder = CreateOrder.newBuilder().apply {
                         orderCreatorAccountId = accessContext.accountContext.accountId
                         organizationId = request.organizationId
@@ -152,7 +152,7 @@ class OrderService(
                             orderClient.addOrderItem(
                                     AddOrderItemRequest.newBuilder().apply {
                                         orderId = orderIdInSenno
-                                        orderItem = com.sennotech.euler.order.generated.OrderItem.newBuilder().apply {
+                                        orderItem = com.sennotech.base.order.generated.OrderItem.newBuilder().apply {
                                             thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
                                             title = StringValue.newBuilder().setValue(sku.skuName).build()
                                             unitPrice = sku.curPrice

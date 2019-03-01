@@ -91,6 +91,11 @@ dependencies {
     compile("org.json:json:20180130")
 }
 
+//log conflict
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
+
 //protobuf {
 //    protoc {
 //        artifact = "com.google.protobuf:protoc:3.6.1"

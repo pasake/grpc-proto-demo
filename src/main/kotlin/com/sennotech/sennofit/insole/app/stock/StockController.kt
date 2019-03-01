@@ -1,14 +1,12 @@
 package com.sennotech.sennofit.insole.app.stock
 
-import com.sennotech.euler.common.exceptions.SennofitExceptions
-import com.sennotech.euler.common.grpc.interceptors.AccessContextServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestLoggerServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestUuidServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.SennoExceptionServerInterceptor
-import com.sennotech.euler.common.util.logger
+import com.sennotech.base.common.grpc.interceptors.AccessContextServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestLoggerServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestUuidServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.SennoExceptionServerInterceptor
+import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.stock.generated.*
 import io.grpc.stub.StreamObserver
-import jdk.nashorn.internal.runtime.regexp.joni.Config.log
 import org.lognet.springboot.grpc.GRpcService
 import org.springframework.data.redis.core.RedisTemplate
 import javax.annotation.PostConstruct

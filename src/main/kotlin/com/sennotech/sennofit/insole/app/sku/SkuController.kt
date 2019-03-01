@@ -1,6 +1,6 @@
 package com.sennotech.sennofit.insole.app.sku
 
-import com.sennotech.euler.common.grpc.interceptors.*
+import com.sennotech.base.common.grpc.interceptors.*
 import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import io.grpc.stub.StreamObserver
 import org.lognet.springboot.grpc.GRpcService

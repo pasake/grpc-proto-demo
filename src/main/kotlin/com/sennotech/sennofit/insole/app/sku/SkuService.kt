@@ -1,7 +1,7 @@
 package com.sennotech.sennofit.insole.app.sku
 
 import com.google.protobuf.StringValue
-import com.sennotech.euler.common.util.logger
+import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest

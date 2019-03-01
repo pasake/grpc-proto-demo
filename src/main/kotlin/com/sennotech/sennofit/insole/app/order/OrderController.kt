@@ -1,10 +1,10 @@
 package com.sennotech.sennofit.insole.app.order
 
-import com.sennotech.euler.common.exceptions.SennofitExceptions
-import com.sennotech.euler.common.grpc.interceptors.AccessContextServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestLoggerServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.RequestUuidServerInterceptor
-import com.sennotech.euler.common.grpc.interceptors.SennoExceptionServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.AccessContextServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestLoggerServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestUuidServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.SennoExceptionServerInterceptor
+import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.order.generated.*
 import io.grpc.stub.StreamObserver
 import org.lognet.springboot.grpc.GRpcService

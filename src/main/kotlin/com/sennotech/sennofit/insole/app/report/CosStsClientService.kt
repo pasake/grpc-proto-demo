@@ -1,6 +1,6 @@
 package com.sennotech.sennofit.insole.app.report
 
-import com.sennotech.euler.common.util.logger
+import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.report.generated.Report
 import com.sennotech.sennofit.report.config.CosStsClient
 import org.springframework.stereotype.Service

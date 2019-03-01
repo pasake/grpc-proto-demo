@@ -1,6 +1,6 @@
 package com.sennotech.sennofit
 
-import com.sennotech.euler.common.util.logger
+import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.SennofitInsoleAppApplication
 import com.sennotech.sennofit.insole.app.order.*
 import com.sennotech.sennofit.insole.app.order.OrderDetail
@@ -52,11 +52,11 @@ class OrderServiceTest {
 
         stub = OrderServiceGrpc.newBlockingStub(channel)
 
-//        orderRepository.saveAll(arrayListOf(
-//                orderEntity(10086, 1008611),
-//                orderEntity(10087, 1008711),
-//                orderEntity(10088, 1008811)
-//        ))
+        orderRepository.saveAll(arrayListOf(
+                orderEntity(10086, 1008611),
+                orderEntity(10087, 1008711),
+                orderEntity(10088, 1008811)
+        ))
     }
 
     @After
@@ -129,7 +129,7 @@ class OrderServiceTest {
         val r = stub.listOrder(ListOrderRequest.getDefaultInstance())
 
         log.info(r.orderItemsList.toString())
-        log.info("size " + r.orderItemsCount)
+        log.info("size " + orderRepository.count())
     }
 
     private fun orderEntity(orderIdRedis: Long, orderIdSenno: Long): OrderEntity {
