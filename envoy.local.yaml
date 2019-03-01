@@ -73,5 +73,5 @@ static_resources:
     lb_policy: round_robin
     hosts:
     - socket_address:
-        address: docker.for.win.localhost
+        address: docker.for.mac.localhost
         port_value: 50512
