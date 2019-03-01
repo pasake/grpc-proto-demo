@@ -1,6 +1,6 @@
 package com.sennotech.sennofit.common.exceptions
 
-import com.sennotech.euler.common.exceptions.SennoExceptions
+import com.sennotech.base.common.exceptions.SennoExceptions
 
 sealed class SennofitExceptions(
         uuid: String,
