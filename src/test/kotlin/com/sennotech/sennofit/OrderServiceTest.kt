@@ -52,11 +52,11 @@ class OrderServiceTest {
 
         stub = OrderServiceGrpc.newBlockingStub(channel)
 
-        orderRepository.saveAll(arrayListOf(
-                orderEntity(10086, 1008611),
-                orderEntity(10087, 1008711),
-                orderEntity(10088, 1008811)
-        ))
+//        orderRepository.saveAll(arrayListOf(
+//                orderEntity(10086, 1008611),
+//                orderEntity(10087, 1008711),
+//                orderEntity(10088, 1008811)
+//        ))
     }
 
     @After

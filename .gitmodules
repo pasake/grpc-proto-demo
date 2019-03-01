@@ -34,3 +34,7 @@
 	path = sennofit-proto
 	url = https://git.coding.net/sennotech/sennofit-proto.git
 	branch = develop
+[submodule "sennofit-exception-config"]
+	path = sennofit-exception-config
+	url = https://git.coding.net/sennotech/sennofit-exception-config.git
+	branch = develop
