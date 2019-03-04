@@ -66,6 +66,7 @@ dependencies {
 import org.apache.tools.ant.taskdefs.condition.Os
 
 protobuf {
+//    generatedFilesBaseDir = "$projectDir/src"
     protoc {
         artifact = "com.google.protobuf:protoc:3.6.1"
     }
@@ -105,8 +106,12 @@ protobuf {
             task.descriptorSetOptions.includeSourceInfo = true
             task.descriptorSetOptions.includeImports = true
         }
-
     }
+}
+
+task copyTS(type: Copy) {
+    from "$projectDir/build/generated/source/proto/main/typescript"
+    into "$projectDir/src/typescript"
 }
 
 //dependencyManagement {
