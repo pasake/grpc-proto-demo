@@ -1,11 +1,10 @@
 package com.sennotech.sennofit.insole.app.report
 
-import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.report.generated.Report
 import com.sennotech.sennofit.report.config.CosStsClient
+import com.sennotech.util.logger
 import org.springframework.stereotype.Service
 import java.io.IOException
-import java.lang.NullPointerException
 import java.util.*
 
 /**

@@ -1,12 +1,12 @@
 package com.sennotech.sennofit
 
-import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.SennofitInsoleAppApplication
 import com.sennotech.sennofit.insole.app.order.*
 import com.sennotech.sennofit.insole.app.order.OrderDetail
 import com.sennotech.sennofit.insole.app.order.generated.*
 import com.sennotech.sennofit.insole.app.sku.SkuEntity
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
+import com.sennotech.util.logger
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.junit.After
