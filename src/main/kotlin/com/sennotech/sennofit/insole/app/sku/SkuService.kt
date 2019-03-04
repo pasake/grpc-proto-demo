@@ -1,11 +1,11 @@
 package com.sennotech.sennofit.insole.app.sku
 
 import com.google.protobuf.StringValue
-import com.sennotech.base.common.util.logger
 import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
+import com.sennotech.util.logger
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 

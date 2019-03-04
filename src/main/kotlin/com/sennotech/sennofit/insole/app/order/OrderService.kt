@@ -2,14 +2,14 @@ package com.sennotech.sennofit.insole.app.order
 
 import com.google.protobuf.StringValue
 import com.sennotech.base.common.grpc.ContextKeys
-import com.sennotech.base.common.util.logger
+import com.sennotech.base.order.client.OrderClient
 import com.sennotech.base.order.generated.CreateOrder
-import com.sennotech.euler.order.client.OrderClient
 import com.sennotech.base.order.generated.AddOrderItemRequest
 import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.order.generated.*
 import com.sennotech.sennofit.insole.app.sku.SkuRepository
 import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
+import com.sennotech.util.logger
 import org.apache.commons.lang3.StringUtils
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
