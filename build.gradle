@@ -66,7 +66,7 @@ dependencies {
 import org.apache.tools.ant.taskdefs.condition.Os
 
 protobuf {
-//    generatedFilesBaseDir = "$projectDir/src"
+    generatedFilesBaseDir = "$projectDir/protoc-dir"
     protoc {
         artifact = "com.google.protobuf:protoc:3.6.1"
     }
@@ -75,7 +75,6 @@ protobuf {
         grpc {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.14.0'
         }
-
         if (Os.isFamily(Os.FAMILY_MAC)) {
             typescript {
                 path = project.projectDir.getPath() + '/tools/protoc-gen-ts-darwin'
@@ -93,7 +92,9 @@ protobuf {
             task.plugins {
                 grpc {}
                 if (Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_UNIX)) {
-                    typescript {}
+                    typescript {
+                        
+                    }
                 }
             }
 
@@ -107,11 +108,6 @@ protobuf {
             task.descriptorSetOptions.includeImports = true
         }
     }
-}
-
-task copyTS(type: Copy) {
-    from "$projectDir/build/generated/source/proto/main/typescript"
-    into "$projectDir/src/typescript"
 }
 
 //dependencyManagement {
