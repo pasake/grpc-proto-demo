@@ -61,7 +61,9 @@ class SkuController(
 
         skuService.updateSku(request)
 
-        responseObserver?.onNext(UpdateSkuResponse.getDefaultInstance())
-        responseObserver?.onCompleted()
+        responseObserver?.apply {
+            onNext(UpdateSkuResponse.getDefaultInstance())
+            onCompleted()
+        }
     }
 }
