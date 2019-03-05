@@ -8,6 +8,16 @@ public interface AddressDetailOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
+   * <code>string gender = 1;</code>
+   */
+  java.lang.String getGender();
+  /**
+   * <code>string gender = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getGenderBytes();
+
+  /**
    * <code>string shippingAddress = 2;</code>
    */
   java.lang.String getShippingAddress();

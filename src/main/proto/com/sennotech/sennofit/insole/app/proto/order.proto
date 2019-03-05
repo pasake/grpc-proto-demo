@@ -65,6 +65,7 @@ message GetOrderRequest {
 }
 
 message AddressDetail {
+    string gender = 1;
     string shippingAddress = 2;
     string customerName = 3;
     string customerPhone = 4;

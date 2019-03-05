@@ -100,25 +100,25 @@ public final class Order {
       "rItemDetailResponse\"F\n\021ListOrderResponse" +
       "\0221\n\norderItems\030\001 \003(\0132\035.insole.app.order." +
       "OrderDetail\"\022\n\020ListOrderRequest\"\035\n\017GetOr" +
-      "derRequest\022\n\n\002id\030\001 \001(\003\"U\n\rAddressDetail\022" +
-      "\027\n\017shippingAddress\030\002 \001(\t\022\024\n\014customerName" +
-      "\030\003 \001(\t\022\025\n\rcustomerPhone\030\004 \001(\t\"L\n\026OrderIt" +
-      "emDetailRequest\022\021\n\tshoesSize\030\001 \001(\005\022\020\n\010qu" +
-      "antity\030\002 \001(\005\022\r\n\005skuId\030\003 \001(\t\"f\n\027OrderItem" +
-      "DetailResponse\022\021\n\tshoesSize\030\001 \001(\005\022\020\n\010qua" +
-      "ntity\030\002 \001(\005\022&\n\003sku\030\003 \001(\0132\031.insole.app.sk" +
-      "u.SkuDetail2\375\002\n\014OrderService\022\216\001\n\013CreateO" +
-      "rder\022$.insole.app.order.CreateOrderReque" +
-      "st\032%.insole.app.order.CreateOrderRespons" +
-      "e\"2\202\323\344\223\002,\"*/insole.app.order.OrderServic" +
-      "e/CreateOrder\022T\n\tListOrder\022\".insole.app." +
-      "order.ListOrderRequest\032#.insole.app.orde" +
-      "r.ListOrderResponse\022\205\001\n\010GetOrder\022!.insol" +
-      "e.app.order.GetOrderRequest\032%.insole.app" +
-      ".order.OrderDetailResponse\"/\202\323\344\223\002)\022\'/ins" +
-      "ole.app.order.OrderService/GetOrderB5\n1c" +
-      "om.sennotech.sennofit.insole.app.order.g" +
-      "eneratedP\001b\006proto3"
+      "derRequest\022\n\n\002id\030\001 \001(\003\"e\n\rAddressDetail\022" +
+      "\016\n\006gender\030\001 \001(\t\022\027\n\017shippingAddress\030\002 \001(\t" +
+      "\022\024\n\014customerName\030\003 \001(\t\022\025\n\rcustomerPhone\030" +
+      "\004 \001(\t\"L\n\026OrderItemDetailRequest\022\021\n\tshoes" +
+      "Size\030\001 \001(\005\022\020\n\010quantity\030\002 \001(\005\022\r\n\005skuId\030\003 " +
+      "\001(\t\"f\n\027OrderItemDetailResponse\022\021\n\tshoesS" +
+      "ize\030\001 \001(\005\022\020\n\010quantity\030\002 \001(\005\022&\n\003sku\030\003 \001(\013" +
+      "2\031.insole.app.sku.SkuDetail2\375\002\n\014OrderSer" +
+      "vice\022\216\001\n\013CreateOrder\022$.insole.app.order." +
+      "CreateOrderRequest\032%.insole.app.order.Cr" +
+      "eateOrderResponse\"2\202\323\344\223\002,\"*/insole.app.o" +
+      "rder.OrderService/CreateOrder\022T\n\tListOrd" +
+      "er\022\".insole.app.order.ListOrderRequest\032#" +
+      ".insole.app.order.ListOrderResponse\022\205\001\n\010" +
+      "GetOrder\022!.insole.app.order.GetOrderRequ" +
+      "est\032%.insole.app.order.OrderDetailRespon" +
+      "se\"/\202\323\344\223\002)\022\'/insole.app.order.OrderServi" +
+      "ce/GetOrderB5\n1com.sennotech.sennofit.in" +
+      "sole.app.order.generatedP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -189,7 +189,7 @@ public final class Order {
     internal_static_insole_app_order_AddressDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_insole_app_order_AddressDetail_descriptor,
-        new java.lang.String[] { "ShippingAddress", "CustomerName", "CustomerPhone", });
+        new java.lang.String[] { "Gender", "ShippingAddress", "CustomerName", "CustomerPhone", });
     internal_static_insole_app_order_OrderItemDetailRequest_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_insole_app_order_OrderItemDetailRequest_fieldAccessorTable = new

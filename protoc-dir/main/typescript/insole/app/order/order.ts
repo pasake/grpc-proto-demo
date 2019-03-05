@@ -63,6 +63,8 @@ export interface GetOrderRequest {
 }
 
 export interface AddressDetail {
+    gender: string
+    
     shippingAddress: string
     
     customerName: string

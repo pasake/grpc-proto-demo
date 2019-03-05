@@ -126,6 +126,38 @@ public final class SkuServiceGrpc {
      return getGetSkuMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest,
+      com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> getUpdateSkuMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateSku",
+      requestType = com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest.class,
+      responseType = com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest,
+      com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> getUpdateSkuMethod() {
+    io.grpc.MethodDescriptor<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest, com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> getUpdateSkuMethod;
+    if ((getUpdateSkuMethod = SkuServiceGrpc.getUpdateSkuMethod) == null) {
+      synchronized (SkuServiceGrpc.class) {
+        if ((getUpdateSkuMethod = SkuServiceGrpc.getUpdateSkuMethod) == null) {
+          SkuServiceGrpc.getUpdateSkuMethod = getUpdateSkuMethod = 
+              io.grpc.MethodDescriptor.<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest, com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "insole.app.sku.SkuService", "UpdateSku"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new SkuServiceMethodDescriptorSupplier("UpdateSku"))
+                  .build();
+          }
+        }
+     }
+     return getUpdateSkuMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -177,6 +209,13 @@ public final class SkuServiceGrpc {
       asyncUnimplementedUnaryCall(getGetSkuMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void updateSku(com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest request,
+        io.grpc.stub.StreamObserver<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpdateSkuMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -200,6 +239,13 @@ public final class SkuServiceGrpc {
                 com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest,
                 com.sennotech.sennofit.insole.app.sku.generated.SkuDetailResponse>(
                   this, METHODID_GET_SKU)))
+          .addMethod(
+            getUpdateSkuMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest,
+                com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse>(
+                  this, METHODID_UPDATE_SKU)))
           .build();
     }
   }
@@ -248,6 +294,14 @@ public final class SkuServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetSkuMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void updateSku(com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest request,
+        io.grpc.stub.StreamObserver<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpdateSkuMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -290,6 +344,13 @@ public final class SkuServiceGrpc {
     public com.sennotech.sennofit.insole.app.sku.generated.SkuDetailResponse getSku(com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest request) {
       return blockingUnaryCall(
           getChannel(), getGetSkuMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse updateSku(com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpdateSkuMethod(), getCallOptions(), request);
     }
   }
 
@@ -337,11 +398,20 @@ public final class SkuServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetSkuMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse> updateSku(
+        com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpdateSkuMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_SKU = 0;
   private static final int METHODID_LIST_SKU = 1;
   private static final int METHODID_GET_SKU = 2;
+  private static final int METHODID_UPDATE_SKU = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -371,6 +441,10 @@ public final class SkuServiceGrpc {
         case METHODID_GET_SKU:
           serviceImpl.getSku((com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest) request,
               (io.grpc.stub.StreamObserver<com.sennotech.sennofit.insole.app.sku.generated.SkuDetailResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_SKU:
+          serviceImpl.updateSku((com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuRequest) request,
+              (io.grpc.stub.StreamObserver<com.sennotech.sennofit.insole.app.sku.generated.UpdateSkuResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -436,6 +510,7 @@ public final class SkuServiceGrpc {
               .addMethod(getCreateSkuMethod())
               .addMethod(getListSkuMethod())
               .addMethod(getGetSkuMethod())
+              .addMethod(getUpdateSkuMethod())
               .build();
         }
       }

@@ -4,6 +4,20 @@ import {
     HttpRequestDelegate,
 } from "../../../grpc"
 
+export interface UpdateSkuRequest {
+    skuName: string
+    
+    oriPrice: number
+    
+    curPrice: number
+    
+    id: string
+    
+}
+
+export interface UpdateSkuResponse {
+}
+
 export interface CreateSkuRequest {
     skuName: string
     
@@ -66,6 +80,11 @@ export class SkuService extends GrpcService {
     async getSku(request: GetSkuRequest): Promise<SkuDetailResponse> {
         const path = '/insole.app.sku.SkuService/GetSku'
         return await this.call(path, request) as SkuDetailResponse
+    }
+    
+    async updateSku(request: UpdateSkuRequest): Promise<UpdateSkuResponse> {
+        const path = '/insole.app.sku.SkuService/UpdateSku'
+        return await this.call(path, request) as UpdateSkuResponse
     }
     
 }

@@ -13,11 +13,27 @@ import "google/protobuf/timestamp.proto";
 service SkuService {
     rpc CreateSku (CreateSkuRequest) returns (SkuDetailResponse);
     rpc ListSku (ListSkuRequest) returns (ListSkuResponse) {
-        option (google.api.http)  = {
+        option (google.api.http) = {
             get: "/insole.app.sku.SkuService/ListSku"
         };
     };
     rpc GetSku (GetSkuRequest) returns (SkuDetailResponse);
+
+    rpc UpdateSku (UpdateSkuRequest) returns (UpdateSkuResponse) {
+        option (google.api.http) = {
+            put: "/insole.app.sku.SkuService/UpdateSku"
+        };
+    };
+}
+
+message UpdateSkuRequest {
+    string skuName = 1;
+    int32 oriPrice = 3;
+    int32 curPrice = 4;
+    string id = 5;
+}
+
+message UpdateSkuResponse {
 }
 
 message CreateSkuRequest {

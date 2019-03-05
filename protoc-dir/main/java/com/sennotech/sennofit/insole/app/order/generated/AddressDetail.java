@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private AddressDetail() {
+    gender_ = "";
     shippingAddress_ = "";
     customerName_ = "";
     customerPhone_ = "";
@@ -45,6 +46,12 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            gender_ = s;
+            break;
+          }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
@@ -93,6 +100,40 @@ private static final long serialVersionUID = 0L;
     return com.sennotech.sennofit.insole.app.order.generated.Order.internal_static_insole_app_order_AddressDetail_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             com.sennotech.sennofit.insole.app.order.generated.AddressDetail.class, com.sennotech.sennofit.insole.app.order.generated.AddressDetail.Builder.class);
+  }
+
+  public static final int GENDER_FIELD_NUMBER = 1;
+  private volatile java.lang.Object gender_;
+  /**
+   * <code>string gender = 1;</code>
+   */
+  public java.lang.String getGender() {
+    java.lang.Object ref = gender_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      gender_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string gender = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getGenderBytes() {
+    java.lang.Object ref = gender_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      gender_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   public static final int SHIPPINGADDRESS_FIELD_NUMBER = 2;
@@ -211,6 +252,9 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!getGenderBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gender_);
+    }
     if (!getShippingAddressBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, shippingAddress_);
     }
@@ -229,6 +273,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!getGenderBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gender_);
+    }
     if (!getShippingAddressBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, shippingAddress_);
     }
@@ -254,6 +301,8 @@ private static final long serialVersionUID = 0L;
     com.sennotech.sennofit.insole.app.order.generated.AddressDetail other = (com.sennotech.sennofit.insole.app.order.generated.AddressDetail) obj;
 
     boolean result = true;
+    result = result && getGender()
+        .equals(other.getGender());
     result = result && getShippingAddress()
         .equals(other.getShippingAddress());
     result = result && getCustomerName()
@@ -271,6 +320,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + GENDER_FIELD_NUMBER;
+    hash = (53 * hash) + getGender().hashCode();
     hash = (37 * hash) + SHIPPINGADDRESS_FIELD_NUMBER;
     hash = (53 * hash) + getShippingAddress().hashCode();
     hash = (37 * hash) + CUSTOMERNAME_FIELD_NUMBER;
@@ -410,6 +461,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      gender_ = "";
+
       shippingAddress_ = "";
 
       customerName_ = "";
@@ -442,6 +495,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.sennotech.sennofit.insole.app.order.generated.AddressDetail buildPartial() {
       com.sennotech.sennofit.insole.app.order.generated.AddressDetail result = new com.sennotech.sennofit.insole.app.order.generated.AddressDetail(this);
+      result.gender_ = gender_;
       result.shippingAddress_ = shippingAddress_;
       result.customerName_ = customerName_;
       result.customerPhone_ = customerPhone_;
@@ -493,6 +547,10 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.sennotech.sennofit.insole.app.order.generated.AddressDetail other) {
       if (other == com.sennotech.sennofit.insole.app.order.generated.AddressDetail.getDefaultInstance()) return this;
+      if (!other.getGender().isEmpty()) {
+        gender_ = other.gender_;
+        onChanged();
+      }
       if (!other.getShippingAddress().isEmpty()) {
         shippingAddress_ = other.shippingAddress_;
         onChanged();
@@ -531,6 +589,75 @@ private static final long serialVersionUID = 0L;
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private java.lang.Object gender_ = "";
+    /**
+     * <code>string gender = 1;</code>
+     */
+    public java.lang.String getGender() {
+      java.lang.Object ref = gender_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gender_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string gender = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGenderBytes() {
+      java.lang.Object ref = gender_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string gender = 1;</code>
+     */
+    public Builder setGender(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      gender_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string gender = 1;</code>
+     */
+    public Builder clearGender() {
+      
+      gender_ = getDefaultInstance().getGender();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string gender = 1;</code>
+     */
+    public Builder setGenderBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      gender_ = value;
+      onChanged();
       return this;
     }
 
