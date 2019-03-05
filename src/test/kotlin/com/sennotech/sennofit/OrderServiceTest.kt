@@ -94,6 +94,7 @@ class OrderServiceTest {
             customerName = "yan"
             customerPhone = "18270834644"
             shippingAddress = "广东省 深圳市 南山区 宝源路 1008611号"
+            gender = "man"
         }.build()
 
         val reportDetailRequest = ReportDetail.newBuilder().apply {
@@ -154,7 +155,8 @@ class OrderServiceTest {
                 shippingAddress = ShippingAddress(
                         phone = "phone",
                         name = "name",
-                        address = "address"
+                        address = "address",
+                        gender = "man"
                 ),
                 report = Report(
                         gait = "gait",

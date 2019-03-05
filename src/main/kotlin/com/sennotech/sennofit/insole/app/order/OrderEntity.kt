@@ -38,6 +38,7 @@ data class OrderItem(
 )
 
 data class ShippingAddress(
+        var gender: String,
         var phone: String,
         var name: String,
         var address: String

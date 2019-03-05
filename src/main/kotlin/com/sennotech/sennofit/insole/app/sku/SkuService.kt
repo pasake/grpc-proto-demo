@@ -1,10 +1,7 @@
 package com.sennotech.sennofit.insole.app.sku
 
 import com.google.protobuf.StringValue
-import com.sennotech.sennofit.insole.app.sku.generated.CreateSkuRequest
-import com.sennotech.sennofit.insole.app.sku.generated.GetSkuRequest
-import com.sennotech.sennofit.insole.app.sku.generated.ListSkuRequest
-import com.sennotech.sennofit.insole.app.sku.generated.SkuDetail
+import com.sennotech.sennofit.insole.app.sku.generated.*
 import com.sennotech.util.logger
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
@@ -35,13 +32,7 @@ class SkuService(
                     curPrice = 9900,
                     picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Norway.png"
             )
-            val sku3 = SkuEntity(
-                    skuName = "SennoFit Sports-普罗旺斯",
-                    oriPrice = 19900,
-                    curPrice = 9900,
-                    picUrl = "https://insole-1255704943.cos.ap-hongkong.myqcloud.com/production/goods/Montevideo.png"
-            )
-            skuRepository.saveAll(arrayListOf(sku1, sku2, sku3))
+            skuRepository.saveAll(arrayListOf(sku1, sku2))
         }
     }
 
@@ -57,6 +48,28 @@ class SkuService(
         }
 
         return convertToSkuDetail(sku)
+    }
+
+    fun updateSku(request: UpdateSkuRequest) {
+        val sku = skuRepository.findById(request.id).orElseThrow {
+            Exceptions.SkuNotFound("63f92d77-12ba-4d6c-94ab-52fc17833d18")
+        }
+
+        var curPrice = sku.curPrice
+        if (request.curPrice > 0)
+            curPrice = request.curPrice
+        var oriPrice = sku.oriPrice
+        if (request.oriPrice > 0)
+            oriPrice = request.oriPrice
+
+        val skuEntity = SkuEntity(
+                skuName = request.skuName ?: sku.skuName,
+                curPrice = curPrice,
+                oriPrice = oriPrice,
+                picUrl = sku.picUrl
+        )
+        skuEntity.id = request.id
+        skuRepository.save(skuEntity)
     }
 
     private fun convertToSkuEntity(request: CreateSkuRequest): SkuEntity {

@@ -54,4 +54,14 @@ class SkuController(
             onCompleted()
         }
     }
+
+    override fun updateSku(request: UpdateSkuRequest?, responseObserver: StreamObserver<UpdateSkuResponse>?) {
+        if (request == null)
+            throw SennofitExceptions.RequestIsNull("e853cbfb-a871-4126-bb18-d62afa8aa15e")
+
+        skuService.updateSku(request)
+
+        responseObserver?.onNext(UpdateSkuResponse.getDefaultInstance())
+        responseObserver?.onCompleted()
+    }
 }
