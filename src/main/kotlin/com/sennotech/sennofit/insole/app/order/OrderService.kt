@@ -43,6 +43,7 @@ class OrderService(
 
     @Transactional
     fun createOrder(request: CreateOrderRequest) {
+
         //判断库存
         if (redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
             throw com.sennotech.sennofit.insole.app.stock.Exceptions
@@ -54,10 +55,10 @@ class OrderService(
                     .SkuNotFound("e85dafc0-fb25-4654-ad0c-50b6426f8218")
         }
 
-//        val accessContext = ContextKeys.accessContext.get()
-//                ?: throw SennofitExceptions.AccountIdIsNull("0627a1f6-6976-43f5-a3e1-be76b50cbcd0")
+        val accessContext = ContextKeys.accessContext.get()
+                ?: throw SennofitExceptions.AccountIdIsNull("0627a1f6-6976-43f5-a3e1-be76b50cbcd0")
 
-/*        val createOrderResponse = orderClient.createOrder(
+        val createOrderResponse = orderClient.createOrder(
                 com.sennotech.base.order.generated.CreateOrderRequest.newBuilder().apply {
                     createOrder = CreateOrder.newBuilder().apply {
                         orderCreatorAccountId = accessContext.accountContext.accountId
@@ -65,10 +66,10 @@ class OrderService(
                         description = sku.desc ?: " "
                         title = sku.skuName
                     }.build()
-                }.build())*/
+                }.build())
 
-//        val orderEntity = orderEntity(request, createOrderResponse.orderId)
-        val orderEntity = orderEntity(request, 100861111)
+        val orderEntity = orderEntity(request, createOrderResponse.orderId)
+//        val orderEntity = orderEntity(request, 100861111)
 
         orderRepository.save(orderEntity)
     }
@@ -151,21 +152,21 @@ class OrderService(
                                         .SkuNotFound("0a2150cc-9973-4482-a7f0-962b287e9b53")
                             }
 
-//                            orderClient.addOrderItem(
-//                                    AddOrderItemRequest.newBuilder().apply {
-//                                        orderId = orderIdInSenno
-//                                        orderItem = com.sennotech.base.order.generated.OrderItem.newBuilder().apply {
-//                                            thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
-//                                            title = StringValue.newBuilder().setValue(sku.skuName).build()
-//                                            unitPrice = sku.curPrice
-//                                            quantity = it.quantity
-//                                            totalPrice = sku.curPrice * it.quantity
-//                                            currency = StringValue.of("RMB")
-//                                            detailType = "sennofit.insole.app"
-//                                            detailId = orderIdInRedis
-//                                        }.build()
-//                                    }.build()
-//                            )
+                            orderClient.addOrderItem(
+                                    AddOrderItemRequest.newBuilder().apply {
+                                        orderId = orderIdInSenno
+                                        orderItem = com.sennotech.base.order.generated.OrderItem.newBuilder().apply {
+                                            thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
+                                            title = StringValue.newBuilder().setValue(sku.skuName).build()
+                                            unitPrice = sku.curPrice
+                                            quantity = it.quantity
+                                            totalPrice = sku.curPrice * it.quantity
+                                            currency = StringValue.of("RMB")
+                                            detailType = "sennofit.insole.app"
+                                            detailId = orderIdInRedis
+                                        }.build()
+                                    }.build()
+                            )
 
                             OrderItem(
                                     shoesSize = it.shoesSize,
