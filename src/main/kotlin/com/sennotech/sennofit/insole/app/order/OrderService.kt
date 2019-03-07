@@ -81,14 +81,16 @@ class OrderService(
     fun listOrder(request: ListOrderRequest?) {
     }
 
-    fun getOrder(request: GetOrderRequest?): OrderDetailResponse {
-        val r = orderRepository.findByOrderIdSenno(request!!.id)
+    fun getOrder(
+            request: GetOrderRequest?): List<com.sennotech.sennofit.insole.app.order.generated.OrderDetail> {
+        val r = orderRepository.findByOrderIdSennoIn(request!!.idList)
         if (r.isEmpty())
             throw Exceptions.OrderNotFound("2692294a-6fbe-4f34-83aa-187584c3f333")
-        return convertResponse(r[0])
+        return r.map { convertResponse(it) }
     }
 
-    private fun convertResponse(orderEntity: OrderEntity): OrderDetailResponse {
+    private fun convertResponse(
+            orderEntity: OrderEntity): com.sennotech.sennofit.insole.app.order.generated.OrderDetail {
         val addressDB = orderEntity.shippingAddress
         val items = orderEntity.orderDetail?.items?.map {
             OrderItemDetailResponse.newBuilder().apply {
@@ -105,17 +107,14 @@ class OrderService(
             }.build()
         }
 
-        return OrderDetailResponse.newBuilder().apply {
-            orderDetail = com.sennotech.sennofit.insole.app.order.generated.OrderDetail.newBuilder()
-                    .apply {
-                        address = AddressDetail.newBuilder().apply {
-                            customerPhone = addressDB.phone
-                            customerName = addressDB.name
-                            shippingAddress = addressDB.address
-                        }.build()
-                        addAllOrderItems(items)
-                        id = orderEntity.id
-                    }.build()
+        return com.sennotech.sennofit.insole.app.order.generated.OrderDetail.newBuilder().apply {
+            address = AddressDetail.newBuilder().apply {
+                customerPhone = addressDB.phone
+                customerName = addressDB.name
+                shippingAddress = addressDB.address
+            }.build()
+            addAllOrderItems(items)
+            id = orderEntity.id
         }.build()
     }
 

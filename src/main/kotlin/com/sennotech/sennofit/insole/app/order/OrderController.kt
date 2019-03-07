@@ -24,7 +24,8 @@ import org.lognet.springboot.grpc.GRpcService
 class OrderController(
         private val orderService: OrderService
 ) : OrderServiceGrpc.OrderServiceImplBase() {
-    override fun createOrder(request: CreateOrderRequest?, responseObserver: StreamObserver<CreateOrderResponse>?) {
+    override fun createOrder(request: CreateOrderRequest?,
+            responseObserver: StreamObserver<CreateOrderResponse>?) {
         if (request == null)
             throw SennofitExceptions.RequestIsNull("3fafcef4-b781-45dc-8d4f-e9856641fc59")
 
@@ -36,7 +37,8 @@ class OrderController(
         }
     }
 
-    override fun listOrder(request: ListOrderRequest?, responseObserver: StreamObserver<ListOrderResponse>?) {
+    override fun listOrder(request: ListOrderRequest?,
+            responseObserver: StreamObserver<ListOrderResponse>?) {
         if (request == null)
             throw SennofitExceptions.RequestIsNull("442398f8-a6ec-4638-b1d9-5bb151935b74")
 
@@ -48,12 +50,17 @@ class OrderController(
         }
     }
 
-    override fun getOrder(request: GetOrderRequest?, responseObserver: StreamObserver<OrderDetailResponse>?) {
+    override fun getOrder(request: GetOrderRequest?,
+            responseObserver: StreamObserver<OrderDetailResponse>?) {
         if (request == null)
             throw SennofitExceptions.RequestIsNull("8d3f2c88-79f0-4c2b-bfd5-1936db537acc")
 
+        val r = orderService.getOrder(request)
+
+        val list = ListOrderResponse.newBuilder().addAllOrderItems(r).build()
+
         responseObserver?.apply {
-            onNext(orderService.getOrder(request))
+            onNext(OrderDetailResponse.newBuilder().setOrderDetail(list).build())
             onCompleted()
         }
     }

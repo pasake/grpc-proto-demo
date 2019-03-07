@@ -8,5 +8,5 @@ import java.util.*
  * @create 2019-02-22 11:06
  */
 interface OrderRepository : MongoRepository<OrderEntity, String> {
-    fun findByOrderIdSenno(orderIdSenno: Long): List<OrderEntity>
+    fun findByOrderIdSennoIn(orderIdSennos: List<Long>): List<OrderEntity>
 }
