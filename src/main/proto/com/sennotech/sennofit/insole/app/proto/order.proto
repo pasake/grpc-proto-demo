@@ -45,7 +45,7 @@ message ReportDetail {
 }
 
 message OrderDetailResponse {
-    OrderDetail orderDetail = 1;
+    ListOrderResponse orderDetail = 1;
 }
 
 message OrderDetail {
@@ -62,7 +62,7 @@ message ListOrderRequest {
 }
 
 message GetOrderRequest {
-    int64 id = 1;
+    repeated int64 id = 1;
 }
 
 message AddressDetail {
