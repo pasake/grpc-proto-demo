@@ -33,7 +33,7 @@ message CreateOrderRequest {
 }
 
 message CreateOrderResponse {
-    int32 orderId = 1;
+    int64 orderId = 1;
 }
 
 message ReportDetail {
