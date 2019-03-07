@@ -92,7 +92,7 @@ class OrderService(
     private fun convertResponse(
             orderEntity: OrderEntity): com.sennotech.sennofit.insole.app.order.generated.OrderDetail {
         val addressDB = orderEntity.shippingAddress
-        val items = orderEntity.orderDetail?.items?.map {
+        val items = orderEntity.orderDetail!!.items.map {
             OrderItemDetailResponse.newBuilder().apply {
                 shoesSize = it.shoesSize
                 quantity = it.quantity
@@ -115,6 +115,7 @@ class OrderService(
             }.build()
             addAllOrderItems(items)
             id = orderEntity.id
+            message = orderEntity.orderDetail!!.message
         }.build()
     }
 
@@ -150,6 +151,7 @@ class OrderService(
                 ),
                 orderDetail = OrderDetail(
                         orderNo = orderNoGen(orderIdInRedis),
+                        message = request.message,
                         items = items.map {
                             val sku = skuRepository.findById(it.skuId).orElseThrow {
                                 com.sennotech.sennofit.insole.app.sku.Exceptions

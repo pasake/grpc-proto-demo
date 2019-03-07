@@ -29,7 +29,8 @@ data class OrderDetail(
         var createTime: LocalDateTime? = LocalDateTime.now(),
         @field:LastModifiedDate
         var updateTime: LocalDateTime? = LocalDateTime.now(),
-        var items: List<OrderItem>
+        var items: List<OrderItem>,
+        var message: String? = null
 )
 
 data class OrderItem(
