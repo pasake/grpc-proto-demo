@@ -45,7 +45,7 @@ message ReportDetail {
 }
 
 message OrderDetailResponse {
-    ListOrderResponse orderDetail = 1;
+    ListOrderResponse response = 1;
 }
 
 message OrderDetail {
@@ -55,7 +55,7 @@ message OrderDetail {
 }
 
 message ListOrderResponse {
-    repeated OrderDetail orderItems = 1;
+    repeated OrderDetail items = 1;
 }
 
 message ListOrderRequest {
