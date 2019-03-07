@@ -68,9 +68,11 @@ class OrderService(
                     }.build()
                 }.build())
 
+        log.info("response : $createOrderResponse")
         val orderEntity = orderEntity(request, createOrderResponse.orderId)
 //        val orderEntity = orderEntity(request, 100861111)
 
+        orderEntity.accountId = accessContext.accountContext.accountId
         orderRepository.save(orderEntity)
 
         return createOrderResponse.orderId

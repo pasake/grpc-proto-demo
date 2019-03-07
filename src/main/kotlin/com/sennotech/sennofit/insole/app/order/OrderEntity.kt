@@ -19,7 +19,8 @@ class OrderEntity(
         var shippingAddress: ShippingAddress,
         var orderIdRedis: Long,
         var orderIdSenno: Long? = null,
-        var report: Report? = null
+        var report: Report? = null,
+        var accountId: Long? = null
 )
 
 data class OrderDetail(
