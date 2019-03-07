@@ -21,6 +21,7 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+protoc-dir/**
 
 ############################# https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore #######################
 .metadata
