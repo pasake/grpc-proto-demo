@@ -20,7 +20,7 @@ service OrderService {
     rpc ListOrder (ListOrderRequest) returns (ListOrderResponse);
     rpc GetOrder (GetOrderRequest) returns (OrderDetailResponse) {
         option (google.api.http) = {
-            get: "/insole.app.order.OrderService/GetOrder"
+            post: "/insole.app.order.OrderService/GetOrder"
         };
     };
 }
