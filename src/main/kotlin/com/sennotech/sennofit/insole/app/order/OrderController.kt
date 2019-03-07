@@ -57,10 +57,10 @@ class OrderController(
 
         val r = orderService.getOrder(request)
 
-        val list = ListOrderResponse.newBuilder().addAllOrderItems(r).build()
+        val list = ListOrderResponse.newBuilder().addAllItems(r).build()
 
         responseObserver?.apply {
-            onNext(OrderDetailResponse.newBuilder().setOrderDetail(list).build())
+            onNext(OrderDetailResponse.newBuilder().setResponse(list).build())
             onCompleted()
         }
     }
