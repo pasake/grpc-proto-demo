@@ -42,7 +42,7 @@ class OrderService(
     }
 
     @Transactional
-    fun createOrder(request: CreateOrderRequest) {
+    fun createOrder(request: CreateOrderRequest): Long {
 
         //判断库存
         if (redisTemplate.opsForValue().get("insole_stock")?.toInt() == 0)
@@ -72,6 +72,8 @@ class OrderService(
 //        val orderEntity = orderEntity(request, 100861111)
 
         orderRepository.save(orderEntity)
+
+        return createOrderResponse.orderId
     }
 
     fun listOrder(request: ListOrderRequest?) {
@@ -102,15 +104,16 @@ class OrderService(
         }
 
         return OrderDetailResponse.newBuilder().apply {
-            orderDetail = com.sennotech.sennofit.insole.app.order.generated.OrderDetail.newBuilder().apply {
-                address = AddressDetail.newBuilder().apply {
-                    customerPhone = addressDB.phone
-                    customerName = addressDB.name
-                    shippingAddress = addressDB.address
-                }.build()
-                addAllOrderItems(items)
-                id = orderEntity.id
-            }.build()
+            orderDetail = com.sennotech.sennofit.insole.app.order.generated.OrderDetail.newBuilder()
+                    .apply {
+                        address = AddressDetail.newBuilder().apply {
+                            customerPhone = addressDB.phone
+                            customerName = addressDB.name
+                            shippingAddress = addressDB.address
+                        }.build()
+                        addAllOrderItems(items)
+                        id = orderEntity.id
+                    }.build()
         }.build()
     }
 
@@ -155,16 +158,19 @@ class OrderService(
                             orderClient.addOrderItem(
                                     AddOrderItemRequest.newBuilder().apply {
                                         orderId = orderIdInSenno
-                                        orderItem = com.sennotech.base.order.generated.OrderItem.newBuilder().apply {
-                                            thumbnail = StringValue.newBuilder().setValue(sku.picUrl).build()
-                                            title = StringValue.newBuilder().setValue(sku.skuName).build()
-                                            unitPrice = sku.curPrice
-                                            quantity = it.quantity
-                                            totalPrice = sku.curPrice * it.quantity
-                                            currency = StringValue.of("RMB")
-                                            detailType = "sennofit.insole.app"
-                                            detailId = orderIdInRedis
-                                        }.build()
+                                        orderItem = com.sennotech.base.order.generated.OrderItem.newBuilder()
+                                                .apply {
+                                                    thumbnail = StringValue.newBuilder()
+                                                            .setValue(sku.picUrl).build()
+                                                    title = StringValue.newBuilder()
+                                                            .setValue(sku.skuName).build()
+                                                    unitPrice = sku.curPrice
+                                                    quantity = it.quantity
+                                                    totalPrice = sku.curPrice * it.quantity
+                                                    currency = StringValue.of("RMB")
+                                                    detailType = "sennofit.insole.app"
+                                                    detailId = orderIdInRedis
+                                                }.build()
                                     }.build()
                             )
 
