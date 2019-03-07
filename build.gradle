@@ -66,7 +66,7 @@ dependencies {
 import org.apache.tools.ant.taskdefs.condition.Os
 
 protobuf {
-//    generatedFilesBaseDir = "$projectDir/protoc-dir"
+    generatedFilesBaseDir = "$projectDir/protoc-dir"
     
     protoc {
         artifact = "com.google.protobuf:protoc:3.6.1"
