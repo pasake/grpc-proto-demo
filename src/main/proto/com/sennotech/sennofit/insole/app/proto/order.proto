@@ -54,6 +54,7 @@ message OrderDetail {
     AddressDetail address = 2;
     repeated OrderItemDetailResponse orderItems = 3;
     string message = 4;
+    int64 orderIdSenno = 5;
 }
 
 message ListOrderResponse {
