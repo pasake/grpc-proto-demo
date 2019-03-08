@@ -116,6 +116,7 @@ class OrderService(
             addAllOrderItems(items)
             id = orderEntity.id
             message = orderEntity.orderDetail!!.message ?: ""
+            orderIdSenno = orderEntity.orderIdSenno ?: 0L
         }.build()
     }
 
