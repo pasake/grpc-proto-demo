@@ -20,3 +20,7 @@ cos:
 spring:
   profiles:
     active: local
+
+cmq:
+  secretId: AKIDhLwX3Y0wocHrfOOgifhbO1A8B6sydStB
+  secretKey: PhpmeMtGXdi1qZFtPpAKK9IKucGk7UMB
