@@ -68,6 +68,7 @@ message OrderDetail {
     repeated OrderItemDetailResponse orderItems = 3;
     string message = 4;
     int64 orderIdSenno = 5;
+    ReportDetail reportDetail = 6;
 }
 
 message ListOrderResponse {
