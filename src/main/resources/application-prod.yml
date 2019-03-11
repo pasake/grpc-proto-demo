@@ -1,1 +1,14 @@
-
+spring:
+  data:
+    mongodb:
+      uri: mongodb://yan:yan@10.0.4.21:27017/sennofit_insole_app_prod
+  redis:
+    host: 172.81.230.245
+    port: 6379
+    password: Sennotech2015
+    database: 11
+cos:
+  folder:
+    report: report
+  bucketName: sennofit-1255704943
+  endpoint: https://sennofit-1255704943.cos.ap-shanghai.myqcloud.com

@@ -114,14 +114,6 @@ class OrderServiceTest {
         stub.createOrder(request)
     }
 
-
-    @Test
-    fun `find one order`() {
-        val r = stub.getOrder(GetOrderRequest.newBuilder()
-                .setId(orderRepository.findAll()[0].orderIdSenno!!).build())
-        log.info(r.toString())
-    }
-
     @Autowired
     lateinit var orderRepository: OrderRepository
 
@@ -129,7 +121,6 @@ class OrderServiceTest {
     fun `list order`() {
         val r = stub.listOrder(ListOrderRequest.getDefaultInstance())
 
-        log.info(r.orderItemsList.toString())
         log.info("size " + orderRepository.count())
     }
 

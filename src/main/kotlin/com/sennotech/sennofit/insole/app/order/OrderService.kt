@@ -70,7 +70,6 @@ class OrderService(
 
         log.info("response : $createOrderResponse")
         val orderEntity = orderEntity(request, createOrderResponse.orderId)
-//        val orderEntity = orderEntity(request, 100861111)
 
         orderEntity.accountId = accessContext.accountContext.accountId
         orderRepository.save(orderEntity)
@@ -92,6 +91,7 @@ class OrderService(
     private fun convertResponse(
             orderEntity: OrderEntity): com.sennotech.sennofit.insole.app.order.generated.OrderDetail {
         val addressDB = orderEntity.shippingAddress
+        var reportDB = orderEntity.report
         val items = orderEntity.orderDetail!!.items.map {
             OrderItemDetailResponse.newBuilder().apply {
                 shoesSize = it.shoesSize
@@ -117,6 +117,13 @@ class OrderService(
             id = orderEntity.id
             message = orderEntity.orderDetail!!.message ?: ""
             orderIdSenno = orderEntity.orderIdSenno ?: 0L
+            reportDetail = ReportDetail.newBuilder().apply {
+                gait = reportDB.gait
+                leftFoot = reportDB.leftFoot
+                rightFoot = reportDB.rightFoot
+                sidePosture = reportDB.sidePosture
+                frontPosture = reportDB.frontPosture
+            }.build()
         }.build()
     }
 
