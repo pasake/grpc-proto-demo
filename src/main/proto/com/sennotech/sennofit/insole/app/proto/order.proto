@@ -23,6 +23,19 @@ service OrderService {
             post: "/insole.app.order.OrderService/GetOrder"
         };
     };
+    rpc OrderNotify (OrderNotifyRequest) returns (OrderNotifyResponse) {
+        option (google.api.http) = {
+            post: "/insole.app.order.OrderService/OrderNotify"
+        };
+    }
+}
+
+message OrderNotifyRequest {
+    string msgBody = 1;
+    string subscriptionName = 2;
+}
+
+message OrderNotifyResponse {
 }
 
 message CreateOrderRequest {
