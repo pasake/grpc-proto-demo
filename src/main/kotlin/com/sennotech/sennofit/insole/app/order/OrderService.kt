@@ -118,7 +118,7 @@ class OrderService(
             message = orderEntity.orderDetail!!.message ?: ""
             orderIdSenno = orderEntity.orderIdSenno ?: 0L
             reportDetail = ReportDetail.newBuilder().apply {
-                gait = reportDB.gait
+                gait = reportDB!!.gait
                 leftFoot = reportDB.leftFoot
                 rightFoot = reportDB.rightFoot
                 sidePosture = reportDB.sidePosture
