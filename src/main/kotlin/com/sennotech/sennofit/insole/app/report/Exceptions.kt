@@ -20,4 +20,10 @@ sealed class Exceptions(
             message = message,
             errorCode = 0
     )
+
+    open class AlgoRpcError(uuid: String, message: String) : Exceptions(
+            uuid = uuid,
+            message = message,
+            errorCode = 1
+    )
 }

@@ -10,9 +10,11 @@ import org.lognet.springboot.grpc.GRpcService
  * @create 2019-01-29 17:43
  */
 @GRpcService
-class CosStsClientController(private val service: CosStsClientService) : ReportServiceGrpc.ReportServiceImplBase() {
+class CosStsClientController(private val service: CosStsClientService) :
+        ReportServiceGrpc.ReportServiceImplBase() {
 
-    override fun genReportCredential(request: Report.GenReportCredentialRequest?, responseObserver: StreamObserver<Report.GenReportCredentialResponse>?) {
+    override fun genReportCredential(request: Report.GenReportCredentialRequest?,
+            responseObserver: StreamObserver<Report.GenReportCredentialResponse>?) {
         val result = service.reportCredential
         responseObserver!!.onNext(result)
         responseObserver.onCompleted()

@@ -12,3 +12,12 @@ cos:
     report: test/report
   bucketName: sennofit-test-1255704943
   endpoint: https://sennofit-test-1255704943.cos.ap-shanghai.myqcloud.com
+
+senno:
+  algo:
+    root: http://office10.sennoapi.com/posture/v2.0
+  directory:
+    temp: /app/tmp
+  notification:
+    posture: https://dev.fit.sennoapi.com/reports/notification/posture
+    video: https://dev.fit.sennoapi.com/reports/notification/video

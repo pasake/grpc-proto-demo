@@ -24,3 +24,15 @@ spring:
 cmq:
   secretId: AKIDhLwX3Y0wocHrfOOgifhbO1A8B6sydStB
   secretKey: PhpmeMtGXdi1qZFtPpAKK9IKucGk7UMB
+
+senno:
+  algo:
+    image:
+      post: /posture
+      get:
+        data: /posture/{uuid}
+        images: /posture/{uuid}/images
+    video:
+      post: /videos
+      get:
+        videos: /videos/{uuid}
