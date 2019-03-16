@@ -27,7 +27,6 @@ class CosStsClientController(private val service: CosStsClientService,
         if (request == null)
             throw SennofitExceptions.RequestIsNull("4503f1a8-27ba-493f-8c26-4e46624274cc")
         val rsp = reportService.uploadProfile(request)
-
         responseObserver?.apply {
             onNext(Report.UploadProfileResponse.newBuilder().setAccountId(rsp).build())
             onCompleted()
