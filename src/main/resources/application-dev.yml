@@ -19,5 +19,5 @@ senno:
   directory:
     temp: /app/tmp
   notification:
-    posture: https://dev.fit.sennoapi.com/reports/notification/posture
-    video: https://dev.fit.sennoapi.com/reports/notification/video
+    posture: https://dev.fit.sennoapi.com/ws/reports/notification/posture
+    video: https://dev.fit.sennoapi.com/ws/reports/notification/video
