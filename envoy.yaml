@@ -61,6 +61,7 @@ static_resources:
               - "insole.app.sku.SkuService"
               - "insole.app.report.ReportService"
               - "insole.app.stock.StockService"
+              - "insole.app.ws.WsService"
               print_options:
                 add_whitespace: true
                 always_print_primitive_fields: true
