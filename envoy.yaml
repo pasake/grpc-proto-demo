@@ -38,6 +38,10 @@ static_resources:
                   route:
                     cluster: insole-app-cluster
                     max_grpc_timeout: 0s
+                - match: { prefix: "/insole.app.ws.WsService" }
+                  route:
+                    cluster: insole-ws-cluster
+                    max_grpc_timeout: 0s
               cors:
                 allow_origin:
                 - "*"
@@ -75,3 +79,12 @@ static_resources:
     - socket_address:
         address: sennofit-insole-app-service
         port_value: 50051
+  - name: insole-ws-cluster
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: sennofit-insole-report-service
+        port_value: 8080

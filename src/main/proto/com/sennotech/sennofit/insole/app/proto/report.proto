@@ -14,9 +14,77 @@ service ReportService {
             get: "/insole.app.report.ReportService/GenReportCredential"
         };
     };
+    rpc UploadProfile (UploadProfileRequest) returns (UploadProfileResponse) {
+        option (google.api.http) = {
+         post:"/insole.app.report.ReportService/UploadProfile"
+        };
+    };
+//    rpc LatestReport (LatestReportRequest) returns (LatestReportResponse) {
+//        option (google.api.http) = {
+//            get:"/insole.app.report.ReportService/LatestReport"
+//        };
+//    }
+//    rpc VideoNotify (VideoNotifyRequest) returns (VideoNotifyResponse) {
+//        option (google.api.http) = {
+//            post:"/insole.app.report.ReportService/VideoNotify"
+//        };
+//    }
+//    rpc PostureNotify (PostureNotifyRequest) returns (PostureNotifyResponse) {
+//        option (google.api.http) = {
+//            post:"/insole.app.report.ReportService/PostureNotify"
+//        };
+//    }
 }
 
+//message PostureNotifyRequest {
+//    string uuid = 1;
+//    Item front = 2;
+//    Item side = 3;
+//}
+//
+//message Item {
+//    bool valid = 1;
+//    string points = 2;
+//    string side = 3;
+//    repeated Risk risks = 4;
+//}
+//
+//message Risk {
+//    int64 id = 1;
+//    string key = 2;
+//    double raw = 3;
+//    string side = 4;
+//    string level = 5;
+//    double value = 6;
+//    bool valid = 7;
+//}
+//
+//message PostureNotifyResponse {
+//}
+//message VideoNotifyRequest {
+//    string uuid = 1;
+//}
+//
+//message VideoNotifyResponse {
+//}
+//
+//message LatestReportRequest {
+//}
+//
+//message LatestReportResponse {
+//}
+
 message GenReportCredentialRequest {
+}
+
+message UploadProfileRequest {
+    string gait = 1;
+    string frontPosture = 2;
+    string sidePosture = 3;
+}
+
+message UploadProfileResponse {
+    int64 accountId = 1;
 }
 
 message GenReportCredentialResponse {
