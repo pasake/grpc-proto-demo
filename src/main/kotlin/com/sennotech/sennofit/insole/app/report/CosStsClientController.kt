@@ -1,5 +1,9 @@
 package com.sennotech.sennofit.insole.app.report
 
+import com.sennotech.base.common.grpc.interceptors.AccessContextServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestLoggerServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.RequestUuidServerInterceptor
+import com.sennotech.base.common.grpc.interceptors.SennoExceptionServerInterceptor
 import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.report.generated.Report
 import com.sennotech.sennofit.insole.app.report.generated.ReportServiceGrpc
@@ -10,7 +14,14 @@ import org.lognet.springboot.grpc.GRpcService
  * @author 严鸿豪
  * @create 2019-01-29 17:43
  */
-@GRpcService
+@GRpcService(
+        interceptors = [
+            AccessContextServerInterceptor::class,
+            SennoExceptionServerInterceptor::class,
+            RequestLoggerServerInterceptor::class,
+            RequestUuidServerInterceptor::class
+        ]
+)
 class CosStsClientController(private val service: CosStsClientService,
         private val reportService: ReportService) :
         ReportServiceGrpc.ReportServiceImplBase() {

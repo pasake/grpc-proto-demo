@@ -33,15 +33,15 @@ class ReportService(
     private val webClient: WebClient = WebClient.builder().baseUrl(root).build()
 
     fun uploadProfile(request: Report.UploadProfileRequest): Long {
-//        val accessContext = ContextKeys.accessContext.get()
-//                ?: throw SennofitExceptions.AccountIdIsNull("0622a1f6-6976-43f5-a3e1-be76b50cbcd0")
+        val accessContext = ContextKeys.accessContext.get()
+                ?: throw SennofitExceptions.AccountIdIsNull("0622a1f6-6976-43f5-a3e1-be76b50cbcd0")
 
         val imageUUID = uploadImage(request.frontPosture, request.sidePosture)
         val videoUUID = uploadVideo(request.gait)
         println(imageUUID.toString())
         println(videoUUID.toString())
-//        val accountId = accessContext.accountContext.accountId
-        val accountId = 1008611L
+        val accountId = accessContext.accountContext.accountId
+//        val accountId = 1008611L
 
         val entity = ReportEntity(
                 images = imageUUID,
