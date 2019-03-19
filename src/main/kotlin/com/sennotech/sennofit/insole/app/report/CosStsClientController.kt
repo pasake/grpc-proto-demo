@@ -1,5 +1,6 @@
 package com.sennotech.sennofit.insole.app.report
 
+import com.sennotech.base.common.grpc.ContextKeys
 import com.sennotech.base.common.grpc.interceptors.AccessContextServerInterceptor
 import com.sennotech.base.common.grpc.interceptors.RequestLoggerServerInterceptor
 import com.sennotech.base.common.grpc.interceptors.RequestUuidServerInterceptor
@@ -31,6 +32,18 @@ class CosStsClientController(private val service: CosStsClientService,
         val result = service.reportCredential
         responseObserver!!.onNext(result)
         responseObserver.onCompleted()
+    }
+
+    override fun accountProfile(request: Report.AccountProfileRequest?,
+            responseObserver: StreamObserver<Report.AccountProfileResponse>?) {
+        val accessContext = ContextKeys.accessContext.get()
+                ?: throw SennofitExceptions.AccountIdIsNull("0622a1f1-6976-43f5-a3e1-be76b50cbcd0")
+        val accountId = accessContext.accountContext.accountId
+
+        responseObserver?.apply {
+            onNext(Report.AccountProfileResponse.newBuilder().setAccountId(accountId).build())
+            onCompleted()
+        }
     }
 
     override fun uploadProfile(request: Report.UploadProfileRequest?,

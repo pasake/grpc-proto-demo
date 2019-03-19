@@ -26,6 +26,13 @@ cmq:
   secretKey: PhpmeMtGXdi1qZFtPpAKK9IKucGk7UMB
 
 senno:
+  client:
+    account:
+      host: senno-account-app-service.senno-playground
+      port: 50051
+    organization:
+      host: senno-organization-app-service.senno-playground
+      port: 50051
   algo:
     image:
       post: /posture

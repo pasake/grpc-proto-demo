@@ -20,7 +20,15 @@ class ReportEntity(
         var status: String? = null,
         var videoResult: Boolean? = false,
         var postureResult: Boolean? = false,
-        var posture: Posture? = null
+        var posture: Posture? = null,
+        var originImages: OriImage? = null
+)
+
+data class OriImage(
+        val frontImageUrl: String? = null,
+        val sideImageUrl: String? = null,
+        val leftFootUrl: String? = null,
+        val rightFootUrl: String? = null
 )
 
 @Setter

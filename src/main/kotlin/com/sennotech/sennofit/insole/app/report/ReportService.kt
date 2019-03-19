@@ -1,9 +1,10 @@
 package com.sennotech.sennofit.insole.app.report
 
+import com.sennotech.base.account.generated.AccountServiceGrpc
 import com.sennotech.base.common.grpc.ContextKeys
 import com.sennotech.sennofit.common.exceptions.SennofitExceptions
 import com.sennotech.sennofit.insole.app.report.generated.Report
-import org.springframework.beans.factory.annotation.Autowired
+import io.grpc.ManagedChannelBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.MediaType
 import org.springframework.http.client.MultipartBodyBuilder
@@ -12,6 +13,7 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
 import java.util.*
+import javax.annotation.PostConstruct
 
 /**
  * @author 严鸿豪
@@ -32,6 +34,17 @@ class ReportService(
     private val videosUrlGet: String = senno.algo!!.video!!.get!!.videos!!
     private val webClient: WebClient = WebClient.builder().baseUrl(root).build()
 
+    private lateinit var accountStub: AccountServiceGrpc.AccountServiceBlockingStub
+
+    @PostConstruct
+    fun postConstrust() {
+        val accountChannel = ManagedChannelBuilder.forAddress(
+                "senno-account-app-service.senno-playground", 50051)
+                .usePlaintext()
+                .build()
+        accountStub = AccountServiceGrpc.newBlockingStub(accountChannel)
+    }
+
     fun uploadProfile(request: Report.UploadProfileRequest): Long {
         val accessContext = ContextKeys.accessContext.get()
                 ?: throw SennofitExceptions.AccountIdIsNull("0622a1f6-6976-43f5-a3e1-be76b50cbcd0")
@@ -42,12 +55,24 @@ class ReportService(
         println(videoUUID.toString())
         val accountId = accessContext.accountContext.accountId
 //        val accountId = 1008611L
+        val endoint = cosConfig.endpoint + "/"
+
+        val frontImageUrl = endoint + request.frontPosture
+        val sideImageUrl = endoint + request.sidePosture
+        val leftFootUrl = endoint + request.leftFoot
+        val rightFootUrl = endoint + request.rightFoot
 
         val entity = ReportEntity(
                 images = imageUUID,
                 video = videoUUID,
                 accountId = accountId,
-                status = "process"
+                status = "process",
+                originImages = OriImage(
+                        frontImageUrl = frontImageUrl,
+                        sideImageUrl = sideImageUrl,
+                        leftFootUrl = leftFootUrl,
+                        rightFootUrl = rightFootUrl
+                )
         )
         reportRepository.save(entity)
         return accountId
