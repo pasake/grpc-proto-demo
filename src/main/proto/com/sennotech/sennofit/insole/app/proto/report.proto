@@ -19,23 +19,34 @@ service ReportService {
          post:"/insole.app.report.ReportService/UploadProfile"
         };
     };
-//    rpc LatestReport (LatestReportRequest) returns (LatestReportResponse) {
-//        option (google.api.http) = {
-//            get:"/insole.app.report.ReportService/LatestReport"
-//        };
-//    }
-//    rpc VideoNotify (VideoNotifyRequest) returns (VideoNotifyResponse) {
-//        option (google.api.http) = {
-//            post:"/insole.app.report.ReportService/VideoNotify"
-//        };
-//    }
-//    rpc PostureNotify (PostureNotifyRequest) returns (PostureNotifyResponse) {
-//        option (google.api.http) = {
-//            post:"/insole.app.report.ReportService/PostureNotify"
-//        };
-//    }
+    rpc AccountProfile (AccountProfileRequest) returns (AccountProfileResponse) {
+        option (google.api.http) = {
+         get:"/insole.app.report.ReportService/AccountProfile"
+        };
+    }
+    //    rpc LatestReport (LatestReportRequest) returns (LatestReportResponse) {
+    //        option (google.api.http) = {
+    //            get:"/insole.app.report.ReportService/LatestReport"
+    //        };
+    //    }
+    //    rpc VideoNotify (VideoNotifyRequest) returns (VideoNotifyResponse) {
+    //        option (google.api.http) = {
+    //            post:"/insole.app.report.ReportService/VideoNotify"
+    //        };
+    //    }
+    //    rpc PostureNotify (PostureNotifyRequest) returns (PostureNotifyResponse) {
+    //        option (google.api.http) = {
+    //            post:"/insole.app.report.ReportService/PostureNotify"
+    //        };
+    //    }
 }
 
+message AccountProfileRequest {
+
+}
+message AccountProfileResponse {
+    int64 accountId = 1;
+}
 //message PostureNotifyRequest {
 //    string uuid = 1;
 //    Item front = 2;
@@ -81,6 +92,8 @@ message UploadProfileRequest {
     string gait = 1;
     string frontPosture = 2;
     string sidePosture = 3;
+    string leftFoot = 4;
+    string rightFoot = 5;
 }
 
 message UploadProfileResponse {
