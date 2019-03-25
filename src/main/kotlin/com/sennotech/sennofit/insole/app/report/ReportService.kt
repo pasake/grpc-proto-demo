@@ -34,17 +34,6 @@ class ReportService(
     private val videosUrlGet: String = senno.algo!!.video!!.get!!.videos!!
     private val webClient: WebClient = WebClient.builder().baseUrl(root).build()
 
-    private lateinit var accountStub: AccountServiceGrpc.AccountServiceBlockingStub
-
-    @PostConstruct
-    fun postConstrust() {
-        val accountChannel = ManagedChannelBuilder.forAddress(
-                "senno-account-app-service.senno-playground", 50051)
-                .usePlaintext()
-                .build()
-        accountStub = AccountServiceGrpc.newBlockingStub(accountChannel)
-    }
-
     fun uploadProfile(request: Report.UploadProfileRequest): Long {
         val accessContext = ContextKeys.accessContext.get()
                 ?: throw SennofitExceptions.AccountIdIsNull("0622a1f6-6976-43f5-a3e1-be76b50cbcd0")
@@ -54,7 +43,7 @@ class ReportService(
         println(imageUUID.toString())
         println(videoUUID.toString())
         val accountId = accessContext.accountContext.accountId
-//        val accountId = 1008611L
+//        val accountId = 10086111L
         val endoint = cosConfig.endpoint + "/"
 
         val frontImageUrl = endoint + request.frontPosture
@@ -63,8 +52,8 @@ class ReportService(
         val rightFootUrl = endoint + request.rightFoot
 
         val entity = ReportEntity(
-                images = imageUUID,
-                video = videoUUID,
+                images = imageUUID.toString(),
+                video = videoUUID.toString(),
                 accountId = accountId,
                 status = "process",
                 originImages = OriImage(

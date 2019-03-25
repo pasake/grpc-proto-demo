@@ -3,7 +3,9 @@ package com.sennotech.sennofit.insole.app.report
 import lombok.Getter
 import lombok.Setter
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -14,14 +16,16 @@ import java.util.*
 class ReportEntity(
         @Id
         var id: String? = null,
-        var images: UUID? = null,
-        var video: UUID? = null,
+        var images: String? = null,
+        var video: String? = null,
         var accountId: Long? = null,
         var status: String? = null,
         var videoResult: Boolean? = false,
         var postureResult: Boolean? = false,
         var posture: Posture? = null,
-        var originImages: OriImage? = null
+        var originImages: OriImage? = null,
+        @LastModifiedDate
+        val updateTime: LocalDateTime? = null
 )
 
 data class OriImage(

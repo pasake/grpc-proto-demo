@@ -14,7 +14,7 @@ cos:
   endpoint: https://sennofit-test-1255704943.cos.ap-shanghai.myqcloud.com
 senno:
   algo:
-    root: http://office10.sennoapi.com/posture/v2.0
+    root: http://212.64.118.52/v2.0
   directory:
     temp: /app/tmp
   notification:

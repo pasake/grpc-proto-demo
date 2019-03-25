@@ -1,5 +1,6 @@
 package com.sennotech.sennofit.insole.app.order
 
+import com.sennotech.sennofit.insole.app.report.ReportEntity
 import com.sennotech.sennofit.insole.app.sku.SkuEntity
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
@@ -19,7 +20,7 @@ class OrderEntity(
         var shippingAddress: ShippingAddress,
         var orderIdRedis: Long,
         var orderIdSenno: Long? = null,
-        var report: Report? = null,
+        var reportId: String? = null,
         var accountId: Long? = null
 )
 
@@ -44,12 +45,4 @@ data class ShippingAddress(
         var phone: String,
         var name: String,
         var address: String
-)
-
-data class Report(
-        var gait: String,
-        var frontPosture: String,
-        var sidePosture: String,
-        var leftFoot: String,
-        var rightFoot: String
 )
