@@ -60,7 +60,8 @@ class ReportService(
                         frontImageUrl = frontImageUrl,
                         sideImageUrl = sideImageUrl,
                         leftFootUrl = leftFootUrl,
-                        rightFootUrl = rightFootUrl
+                        rightFootUrl = rightFootUrl,
+                        videoUrl = endoint + request.gait
                 )
         )
         reportRepository.save(entity)

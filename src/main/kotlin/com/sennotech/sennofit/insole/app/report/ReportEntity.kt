@@ -32,7 +32,8 @@ data class OriImage(
         val frontImageUrl: String? = null,
         val sideImageUrl: String? = null,
         val leftFootUrl: String? = null,
-        val rightFootUrl: String? = null
+        val rightFootUrl: String? = null,
+        val videoUrl: String? = null
 )
 
 @Setter

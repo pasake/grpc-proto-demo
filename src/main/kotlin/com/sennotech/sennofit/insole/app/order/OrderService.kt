@@ -116,7 +116,7 @@ class OrderService(
             id = orderEntity.id
             message = orderEntity.orderDetail!!.message ?: ""
             orderIdSenno = orderEntity.orderIdSenno ?: 0L
-            reportId = orderEntity.reportId
+            reportId = orderEntity.reportId ?: ""
         }.build()
     }
 
